@@ -35,6 +35,6 @@ def Enroll(request):
 			phone = p,
 			is_enroll = is_en
 			)
-			return render(request, 'enroll/enroll_ok.html', {'message':'报名成功,点击返回...'})
+			return render(request, 'enroll/enroll.html', {'message':'%s同学报名成功'%u})
 	form = StudentForm()
 	return render(request, 'enroll/enroll.html', {'form':form})

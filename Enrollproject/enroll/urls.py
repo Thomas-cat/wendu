@@ -4,4 +4,5 @@ app_name ='enroll'
 
 urlpatterns = [
 		path('enroll',views.Enroll,name = 'Enroll'),
+		path('',views.Enroll,name = 'Enroll'),
 		]
