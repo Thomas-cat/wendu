@@ -4,5 +4,6 @@ app_name ='enroll'
 
 urlpatterns = [
 		path('enroll',views.Enroll,name = 'Enroll'),
+		path('Download',views.Download,name = 'Download'),
 		path('',views.Enroll,name = 'Enroll'),
 		]

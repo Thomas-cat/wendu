@@ -57,6 +57,7 @@ a:hover, a:focus {
 body {
     color: #444;
     font-family: 'Lato', sans-serif;
+	width:100%;
 }
 
 p {
