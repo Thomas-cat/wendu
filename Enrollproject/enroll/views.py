@@ -29,11 +29,11 @@ def Download(request):
 		for cell in column:
 			cell.font = Font(size=20)
 
-	wb.save('./2020文都考研报名表.xlsx')
-	file=open('./2020文都考研报名表.xlsx','rb')
+	wb.save('./2020-wendu.xlsx')
+	file=open('./2020-wendu.xlsx','rb')
 	response =FileResponse(file)
 	response['Content-Type']='application/octet-stream'
-	response['Content-Disposition']='attachment;filename="wendu.xlsx"'
+	response['Content-Disposition']='attachment;filename="2020-wendu.xlsx"'
 	return response
 	
 def Enroll(request):
