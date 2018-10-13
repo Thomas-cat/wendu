@@ -3,7 +3,9 @@ from . import views
 app_name ='enroll'
 
 urlpatterns = [
+		path('',views.index,name = 'index'),
 		path('enroll',views.Enroll,name = 'Enroll'),
+		path('enroll2',views.Enroll2,name = 'Enroll2'),
 		path('Download',views.Download,name = 'Download'),
-		path('',views.Enroll,name = 'Enroll'),
+		path('Download2',views.Download2,name = 'Download2'),
 		]
