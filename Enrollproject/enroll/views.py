@@ -12,7 +12,7 @@ def Download2(request):
 	wb = openpyxl.Workbook()
 	sheet = wb.active
 	sheet.title = '2020文都考研报名表'
-	value = [['姓名','性别','手机','QQ','学员','乘车日期','乘车班次','单双程','票价','是否需要其它','专业','报考学院','报考专业','提交时间']]
+	value = [['姓名','性别','手机','QQ','学员','乘车日期','乘车班次','单回程','票价','是否需要其它服务','专业','报考学院','报考专业','提交时间']]
 	raw_data = []
 	a = Student2.objects.all()
 	for item in a:
