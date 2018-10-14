@@ -20,12 +20,16 @@
     <script src="{% static 'enroll/js/modernizr.custom.js' %}"></script>
 </head>
 
-<body style='background-image:url({% static "enroll/img/body.jpg"%});opacity:0.5'>
+<body style='background-image:url({% static "enroll/img/body.jpg"%});'>
 
     <div class="content-body" style='text-align:center'>
-<div style='height:250px;position:relative'><a href="{% url 'enroll:Enroll2'%}" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)"><h1 style="color:black;font-family:Microsoft YaHei,微软雅黑,华文细黑,STHeiti,MingLiu ;">考研现场确认直通车</h1></a></div>
+<div style='height:250px;position:relative'><a href="{% url 'enroll:Enroll2'%}" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:white;font-family:Microsoft YaHei,微软雅黑,华文细黑,STHeiti,MingLiu ;font-size:40px;cursor: pointer;
+    border-radius: 8px;
+    background-color: #498dfcbf;
+	    line-height: 50px;
+    text-align: center;">考研现场确认直通车</a></div>
 
-<div style='height:200px;position:relative'><a href="#" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)"><h1 style="color:black;font-family:Microsoft YaHei,微软雅黑,华文细黑,STHeiti,MingLiu;">敬请期待...</h1></a></div>
+<div style='height:200px;position:relative'><a href="#" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)"><span style="color:black;font-family:Microsoft YaHei,微软雅黑,华文细黑,STHeiti,MingLiu;font-size:20px">更多内容,敬请期待...</span></a></div>
 </div>
 
 <script src="{% static 'enroll/js/script.js' %}"></script>
