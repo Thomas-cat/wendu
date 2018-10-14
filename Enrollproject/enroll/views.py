@@ -11,8 +11,8 @@ import time
 def Download2(request):
 	wb = openpyxl.Workbook()
 	sheet = wb.active
-	sheet.title = '2020文都考研报名表'
-	value = [['姓名','性别','手机','QQ','学员','乘车日期','乘车班次','单回程','票价','是否需要其它服务','专业','报考学院','报考专业','提交时间']]
+	sheet.title = '文都考研现场确认报名表'
+	value = [['姓名','性别','手机','QQ','乘车日期','乘车班次','单双程','12月份是否需要其它服务','专业','报考学院','报考专业','提交时间']]
 	raw_data = []
 	a = Student2.objects.all()
 	for item in a:
@@ -20,15 +20,15 @@ def Download2(request):
 			is_need = '是'
 		else:
 			is_need = '否'
-		temp = [item.name,item.sex,item.phone,item.qq,item.is_enroll,item.ride_date,item.ride_time,item.is_return,item.price,is_need,item.major,item.obj_school,item.obj_major,str(item.modifed_date).split('.')[0]]
+		temp = [item.name,item.sex,item.phone,item.qq,item.is_enroll,item.ride_date,item.ride_time,item.is_return,is_need,item.major,item.obj_school,item.obj_major,str(item.modifed_date).split('.')[0]]
 		raw_data.append(temp)
 	
-	for item in sorted(raw_data,key=itemgetter(1,5,6,7)):
+	for item in sorted(raw_data,key=itemgetter(1,4,5,6)):
 		value.append(item)
 	for i in range(len(value)):
 		for j in range(len(value[i])):
 			sheet.cell(row=i+1, column=j+1, value=str(value[i][j]))
-	for i in ['A','B','C','D','E','F','G','H','I','J','K','L','M','N']:
+	for i in ['A','B','C','D','E','F','G','H','I','J','K','L']:
 		sheet.column_dimensions[i].width =24
 
 
@@ -36,16 +36,16 @@ def Download2(request):
 		for cell in column:
 			cell.font = Font(size=18)
 
-	wb.save('./2019-wendu.xlsx')
-	file=open('./2019-wendu.xlsx','rb')
+	wb.save('./xianchang.xlsx')
+	file=open('./xianchang.xlsx','rb')
 	response =FileResponse(file)
 	response['Content-Type']='application/octet-stream'
-	response['Content-Disposition']='attachment;filename="2019-wendu.xlsx"'
+	response['Content-Disposition']='attachment;filename="xianchang.xlsx"'
 	return response
 def Download(request):
 	wb = openpyxl.Workbook()
 	sheet = wb.active
-	sheet.title = '2020文都考研报名表'
+	sheet.title = '文都考研直通车报名表'
 	value = [['姓名','手机','qq','是否学员','学院','专业','目标学校']]
 	a = Student.objects.all()
 	for item in a:
@@ -66,11 +66,11 @@ def Download(request):
 		for cell in column:
 			cell.font = Font(size=20)
 
-	wb.save('./2020-wendu.xlsx')
-	file=open('./2020-wendu.xlsx','rb')
+	wb.save('./zhitongche.xlsx')
+	file=open('./zhitongche.xlsx','rb')
 	response =FileResponse(file)
 	response['Content-Type']='application/octet-stream'
-	response['Content-Disposition']='attachment;filename="2020-wendu.xlsx"'
+	response['Content-Disposition']='attachment;filename="zhitongche.xlsx"'
 	return response
 	
 def index(request):
@@ -127,28 +127,19 @@ def Enroll2(request):
 			p = request.POST.get('phone')
 			rd = request.POST.get('ride_date')
 			rt = request.POST.get('ride_time')
-			is_en = request.POST.get('is_enroll')
 			is_re = request.POST.get('is_return')
 			sex = request.POST.get('sex')
 			is_ne = request.POST.get('is_need',False)
-			try:
-					if rd == '单程':
-						pr = 20
-					else:
-						pr = 25
-					if is_en == '是':
-						pr+=5
-			except:
-				pass
 			if is_re == '0' or is_en == '0':
 				context.update({'message':'请填写乘车,学员等相关信息'})
 				return render(request, 'enroll/enroll2.html', context=context)
 			temp = Student2.objects.filter(name=u,phone=p)
 			if temp:
-				ride = temp[0].ride_date+"  "+temp[0].ride_time
-				price = temp[0].price
+				rd = temp[0].ride_date
+				rt =temp[0].ride_time
+				ph = temp[0].phone
 				name = temp[0].name
-				context.update({'message':'您已成功提交信息,请勿重复提交','price':price,'ride':ride,'name':name})
+				context.update({'message':'您已成功提交信息,请勿重复提交','ph':ph,'rd':rd,'rt':rt,'name':name})
 				return render(request, 'enroll/enroll2_ok.html', context=context)
 			reg = re.compile(r'^1[0-9]{10}$')	
 			if reg.match(p) == None:
@@ -158,7 +149,7 @@ def Enroll2(request):
 				is_ne = True
 			data = {'u':u,'o':o,'q':q,'om':om,'rd':rd,'rt':rt,
 					'm':m,'p':p,'is_en':is_en,'is_need':is_ne,
-					'is_re':is_re,'pr':pr,'sex':sex}
+					'is_re':is_re,'sex':sex}
 			Student2.objects.create(
 			name = u,
 			qq = q,
@@ -166,34 +157,16 @@ def Enroll2(request):
 			obj_major = om,
 			ride_date = rd,
 			ride_time = rt,
-			price = pr,
 			major = m,
 			phone = p,
-			is_enroll = is_en,
 			is_return = is_re,
 			is_need = is_ne,
 			sex= sex,
 			)
-			ride = rd+"  "+rt
-			price = pr
+			rd = rd
+			rt = rt
+			ph = p
 			name = u
-			return render(request, 'enroll/enroll2_ok.html', {'message':'%s,同学成功提交信息'%request.POST['name'],'price':pr,'ride':ride,'name':name})
+			return render(request, 'enroll/enroll2_ok.html', {'message':'%s,同学成功提交信息'%request.POST['name'],'ph':ph,'name':name,'rd':rd,'rt':rt})
 	form = StudentForm2()
 	return render(request, 'enroll/enroll2.html', {'form':form})
-def check(request):
-		Student2.objects.create(
-		name = u,
-		qq = q,
-		obj_school = o,
-		obj_major = om,
-		ride_date = rd,
-		ride_time = rt,
-		price = pr,
-		major = m,
-		phone = p,
-		is_enroll = is_en,
-		is_return = is_re,
-		is_need = is_ne,
-		sex= sex,
-		)
-		return render(request, 'enroll/enroll2_ok.html', {'message':'%s,同学成功提交信息'%request.POST['name']})

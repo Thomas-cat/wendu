@@ -2,9 +2,9 @@ from django.contrib import admin
 from .models import Student,Student2
 
 class StudentAdmin2(admin.ModelAdmin):
-	list_display = ['name','sex','phone','qq', 'is_enroll','is_return','ride_date','ride_time','is_need','major','obj_school','obj_major','modifed_date']
+	list_display = ['name','sex','phone','qq', 'is_return','ride_date','ride_time','is_need','major','obj_school','obj_major','modifed_date']
 	search_fields =('name','phone','qq','major','ride_date')
-	list_filter =('is_enroll','ride_date','ride_time','modifed_date',)
+	list_filter =('ride_date','ride_time','modifed_date',)
 	list_per_page = 50
 	ordering = ('-modifed_date',)
 class StudentAdmin(admin.ModelAdmin):

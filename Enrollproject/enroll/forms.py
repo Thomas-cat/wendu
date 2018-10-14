@@ -23,7 +23,5 @@ class StudentForm2(forms.Form):
 	is_return = forms.ChoiceField(choices=((0,'------'),('单程','单程'),('双程','双程')),required=True,initial=0)
 	major = forms.CharField(max_length = 100,strip=True,required=True)
 	phone = forms.CharField(max_length=11,min_length=11,strip=True,required=True)
-	is_enroll = forms.ChoiceField(choices=((0,'------'),('是','是'),('否','否')),required=False)
-
 	is_need = forms.BooleanField(required=False)
-	fields = ['name','qq','obj_school','major','phone','is_enroll','sex','is_need','is_return','ride_date','obj_major']
+	fields = ['name','qq','obj_school','major','phone','sex','is_need','is_return','ride_date','obj_major']
