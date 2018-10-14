@@ -1,83 +1,25 @@
+ {% extends 'base.html'%}
 {% load staticfiles %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>文都考研</title>
-
-    <!-- meta -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
- <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
- <script src="https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
- <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- css -->
-    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="{% static 'enroll/css/pace.css' %}">
-    <link rel="stylesheet" href="{% static 'enroll/css/custom.css' %}">
-
-    <!-- js -->
-    <script src="{% static 'enroll/js/pace.min.js' %}"></script>
-    <script src="{% static 'enroll/js/modernizr.custom.js' %}"></script>
-</head>
-
-<body>
-<div id="toptitle" style="text-align:left">
-<div>
-        <h2 class="htitle" id="htitle">
-		<a  href="{% url 'enroll:Enroll2'%}">{{message}}</a>
-</div>
-
+			{%block main%}
+			<h1 style="color:#501cd0cc" align="center">您的信息如下</h1>
+{%for k,v in st.items%}
 <div style="position:relative">
-<h3>
-<p style="position:absolute;">姓名:{{name}}</p>
-</h3>
+<h4>
+<p style="position:relative;margin-bottom:5px">{{forloop.counter}}.{{k}}:</p>
+</h4>
 </div>
-
 <div style="position:relative">
-<h3>
-<p style="position:absolute;top:40px">手机号:{{ph}}</p>
-</h3>
+<h4>
+<p style="position:relative;margin-bottom:15px;color:#ff0000a6">{{v}}</p>
+</h4>
 </div>
-
-<div style="position:relative">
-<h3>
-<p style="position:absolute;top:80px">乘车日期:{{rd}}</p>
-</h3>
-</div>
-
-<div style="position:relative">
-<h3>
-<p style="position:absolute;top:120px">乘车班次:{{rt}}</p>
-</h3>
-</div>
-
-<div style="position:relative">
-<h3>
-<p style="position:absolute;top:180px">请到文都教育学习中心领取乘车凭证并现场缴费(京廷学术交流中心一层东侧)</p>
-</h3>
-</div>
-
-<div style="position:relative">
-<h3>
-<p style="position:absolute;top:260px">QQ群号:931119487 </p>
-</h3>
-</div>
-
-<div style="position:relative">
-<h3>
-<p style="position:absolute;top:300px">联系电话:15230577187(王渊圆)</p>
-</h3>
-</div>
-
-<div style="position:relative">
-<h3>
-<p style="position:absolute;top:340px">监督电话:18032519800(张丽娟)</p>
-</h3>
-</div>
-
-</div>
-<script src="{% static 'enroll/js/script.js' %}"></script>
-
-</body>
-</html>
+{%empty%}
+{%endfor%}
+<hr style="border-top: 2px solid #ddd;">
+<div align="left" style="float:left">
+	<p><button class="btn btn-primary" data-toggle="button" onclick="location='{% url 'enroll:zhifubao' money  %}'">支付宝支付</button></p>
+    </div>
+    <div align="right">
+	<p><button class="btn btn-primary" data-toggle="button" onclick="location='{% url 'enroll:weixin' money %}'">微信支付</button></p>
+    </div>
+{%endblock%}
