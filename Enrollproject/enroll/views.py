@@ -20,7 +20,7 @@ def Download2(request):
 			is_need = '是'
 		else:
 			is_need = '否'
-		temp = [item.name,item.sex,item.phone,item.qq,item.ride_date,item.ride_time,item.is_return,item.price,is_need,item.major,item.obj_school,item.obj_major,str(item.modifed_date).split('.')[0]]
+		temp = [item.name,item.sex,item.phone,item.qq,item.ride_date,item.ride_time,item.is_return,item.is_enroll,item.price,is_need,item.major,item.obj_school,item.obj_major,str(item.modifed_date).split('.')[0]]
 		raw_data.append(temp)
 	
 	for item in sorted(raw_data,key=itemgetter(1,4,5,6)):
@@ -150,8 +150,11 @@ def Enroll2(request,*args,**kwargs):
 				return render(request, 'enroll/enroll2.html', context=context)
 			if is_ne !=False:
 				is_ne = True
+				ne  = '需要'
+			else:	
+				ne = '不需要'
 
-			data = {'姓名':u,'性别':sex,'手机':p,'QQ':q,'乘车日期':rd,'乘车班次':rt,'单双程':is_re,'是否学员':is_en,'票价':pr,'是否其他服务':is_ne,'专业':m,'目标学校':o,'目标专业':om}
+			data = [['姓名',u],['性别',sex],['手机',p],['QQ',q],['乘车日期',rd],['乘车班次',rt],['单双程',is_re],['是否学员',is_en],['票价',pr],['十二月份是否需要住宿等服务',ne],['专业',m],['目标学校',o],['目标专业',om]]
 
 			logging.debug(pr)
 			Student2.objects.create(

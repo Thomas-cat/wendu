@@ -2,15 +2,15 @@
 {% load staticfiles %}
 			{%block main%}
 			<h1 style="color:#501cd0cc" align="center">您的信息如下</h1>
-{%for k,v in st.items%}
+{%for k in st%}
 <div style="position:relative">
 <h4>
-<p style="position:relative;margin-bottom:5px">{{forloop.counter}}.{{k}}:</p>
+<p style="position:relative;margin-bottom:5px">{{forloop.counter}}.{{k.0}}:</p>
 </h4>
 </div>
 <div style="position:relative">
 <h4>
-<p style="position:relative;margin-bottom:15px;color:#ff0000a6">{{v}}</p>
+<p style="position:relative;margin-bottom:25px;color:#d04e72">{{k.1}}</p>
 </h4>
 </div>
 {%empty%}

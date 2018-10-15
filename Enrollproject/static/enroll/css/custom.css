@@ -709,7 +709,14 @@ font-size: 24px;
 	width:100%;
 }
 
-input[type='checkbox']{width:2%;}
+input[type='checkbox']{
+width:3%;
+-ms-transform: scale(2); /* IE */  
+-moz-transform: scale(2); /* FireFox */ 
+ -webkit-transform: scale(1.5); /* Safari and Chrome */  
+-o-transform: scale(2); /* Opera */
+
+}
 .field-label{
 
     position: relative;
