@@ -1,7 +1,12 @@
  {% extends 'base.html'%}
 {% load staticfiles %}
 			{%block main%}
-			<h1 style="color:#501cd0cc" align="center">您的信息如下</h1>
+<div id="toptitle" style="margin-bottom:30px">
+        <h1 class="htitle" id="htitle" style="    color: #343434;
+    font-size: 38px;
+    font-weight: 700;">
+            您的信息如下,请继续支付</h1>
+    </div>
 {%for k in st%}
 <div style="position:relative">
 <h4>

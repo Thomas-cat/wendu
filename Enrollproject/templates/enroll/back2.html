@@ -1,0 +1,25 @@
+ {% extends 'base.html'%}
+{% load staticfiles %}
+			{%block main%}
+			<h1 style="color:#501cd0cc" align="center">您的信息如下</h1>
+{%for k in st%}
+<div style="position:relative">
+<h4>
+<p style="position:relative;margin-bottom:5px">{{forloop.counter}}.{{k.0}}:</p>
+</h4>
+</div>
+<div style="position:relative">
+<h4>
+<p style="position:relative;margin-bottom:25px;color:#d04e72">{{k.1}}</p>
+</h4>
+</div>
+{%empty%}
+{%endfor%}
+<hr style="border-top: 2px solid #ddd;">
+<div align="left" style="float:left">
+	<p><button class="btn btn-primary" data-toggle="button" onclick="location='{% url 'enroll:zhifubao' money  %}'">支付宝支付</button></p>
+    </div>
+    <div align="right">
+	<p><button class="btn btn-primary" data-toggle="button" onclick="location='{% url 'enroll:weixin' money %}'">微信支付</button></p>
+    </div>
+{%endblock%}

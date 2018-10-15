@@ -15,11 +15,9 @@ top:40px;
     padding: 0 10px;
     line-height: 40px;
     height: 40px;
-    background: #337ab799;
-    color: white;
-    border-bottom: 1px solid #e5e5e5;
+    background-color:#4c9bde; 
     font-size: 18px;	
-
+	color:white;
 }
 
 
@@ -72,7 +70,7 @@ background:#699dca;
     display: block;
     margin-bottom: 10px;
     overflow: hidden;
-    padding: 120px 0;
+    padding: 100px 0;
     text-align: center;
     text-shadow: 1px 1px 0 #000;
 
@@ -80,7 +78,7 @@ background:#699dca;
 }
 .excerpt-p{
 
-	font-size:13px;
+	font-size:15px;
 	color:#999;
 
 }
