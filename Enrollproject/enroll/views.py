@@ -12,7 +12,7 @@ def Download2(request):
 	wb = openpyxl.Workbook()
 	sheet = wb.active
 	sheet.title = '文都考研现场确认报名表'
-	value = [['姓名','性别','手机','QQ','乘车日期','乘车班次','单双程','学员','票价','12月份住宿等服务','专业','报考学院','报考专业','提交时间']]
+	value = [['姓名','性别','手机','QQ','乘车日期','乘车班次','单双程','学员','票价','12月份住宿等服务','专业','报考学院','报考专业']]
 	raw_data = []
 	a = Student2.objects.all()
 	for item in a:
@@ -20,7 +20,7 @@ def Download2(request):
 			is_need = '是'
 		else:
 			is_need = '否'
-		temp = [item.name,item.sex,item.phone,item.qq,item.ride_date,item.ride_time,item.is_return,item.is_enroll,item.price,is_need,item.major,item.obj_school,item.obj_major,str(item.modifed_date).split('.')[0]]
+		temp = [item.name,item.sex,item.phone,item.qq,item.ride_date,item.ride_time,item.is_return,item.is_enroll,item.price,is_need,item.major,item.obj_school,item.obj_major]
 		raw_data.append(temp)
 	
 	for item in sorted(raw_data,key=itemgetter(1,4,5,6)):
@@ -28,7 +28,7 @@ def Download2(request):
 	for i in range(len(value)):
 		for j in range(len(value[i])):
 			sheet.cell(row=i+1, column=j+1, value=str(value[i][j]))
-	for i in ['A','B','C','D','E','F','G','H','I','J','K','L','M','N']:
+	for i in ['A','B','C','D','E','F','G','H','I','J','K','L','M']:
 		sheet.column_dimensions[i].width =25
 
 	for column in sheet.columns:

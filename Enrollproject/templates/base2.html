@@ -42,7 +42,7 @@
 	<div class="top-bar-left top-bar-inline">
 <ul class="menu">
 	<li class="menu-text">
-<img src="{%static 'blog/img/logo.ico'%}"/>
+<img  src="{%static 'blog/img/logo.ico'%}"/>
 		<a href="/" style="font-size:24px;    font-size: 25px;
     position: absolute;
     top: 5px;
@@ -57,22 +57,53 @@
 	</div>
 </div>
 
-    <header id="site-header">
-<div class="header--image" style="background-image:url({% static 'blog/img/index.jpg' %});background-color:#000;">
+    <header id="site-header" style="height:200px">
+<div id="jp1" class="header--image" style="background-image:url({% static 'blog/img/index1.jpg' %});background-color:#000; 
+	width: 100%;
+	height:100%;
+    overflow: hidden;
+    z-index: 18;
+    visibility: inherit;
+    opacity: 1;
+	transition:all 1s ease-in-out;
+    position: absolute;">
 <div class="row">
-<div class="column small-12"><h1 class='first-word' style=" font-family: Microsoft YaHei,微软雅黑,华文细黑,STHeiti,MingLiu;"></h1></div></div></div>
+<div class="column small-12" style="transform: translate(-50%, -50%);position:absolute;top:50%;left:50%;">
+<h1 class='first-word' style=" font-family: Microsoft YaHei,微软雅黑,华文细黑,STHeiti,MingLiu;">
+</h1>
+</div>
+</div>
+</div>
+<div id="jp2" class="header--image" style="background-image:url({% static 'blog/img/index2.jpg' %});background-color:#000; 
+	width: 100%;
+	height:100%;
+    overflow: hidden;
+    z-index: 18;
+    visibility: inherit;
+    opacity: 1;
+	transition:all 1s ease-in-out;
+    position: absolute;">
+<div class="row">
+<div class="column small-12" style="transform: translate(-50%, -50%);position:absolute;top:50%;left:50%;">
+<h1 class='first-word' style=" font-family: Microsoft YaHei,微软雅黑,华文细黑,STHeiti,MingLiu;">
+</h1>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column small-12" style="transform: translate(-50%, -50%);position:absolute;top:50%;left:50%;"><h1 class='first-word' style=" font-family: Microsoft YaHei,微软雅黑,华文细黑,STHeiti,MingLiu;"></h1></div></div></div>
+
     </header>
-<div class="container" id="detail">
+<div class="container" id="detail" style="">
 	<div class="content-body">
    		 <div class="container">
    		     <div class="row">
             <main class="col-md-8">
 	    {% block main %}
 	    {% endblock main %}
-
             <aside  class="col-md-4">
+				<footer><p class="footer--text" style="color:#501cd0">监督电话:18032783787(张老师)</p></footer>
 				<footer><p class="footer--text" style="color:#501cd0">联系电话:15230577187(王老师)</p></footer>
-				<footer><p class="footer--text" style="color:#501cd0">监督电话:18032519800(张老师)</p></footer>
 				<footer><p class="footer--text" style="color:#501cd0">Copyright © WENDU 2018-2019</p></footer>
             </aside>
             </main>
