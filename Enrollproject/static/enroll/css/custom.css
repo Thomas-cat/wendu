@@ -55,7 +55,7 @@ a:hover, a:focus {
 }
 
 body {
-    color: #444;
+    color: #666666;
     font-family: 'Lato', sans-serif;
 	width:100%;
 }
@@ -695,8 +695,6 @@ font-size: 24px;
     font-weight: bold;
     margin: 0;
     padding: 0;
-    text-align: center;
-
 
 }
 
@@ -704,9 +702,10 @@ font-size: 24px;
     border: 1px solid #e0e0e0;
     margin: 5px 0;
     background-color: #fff;
-    padding: 6px;
-    border-radius: 4px;
+    padding: 10px;
+    border-radius: 3px;
 	width:100%;
+	    border-color: #acacac;
 }
 
 input[type='checkbox']{
@@ -725,6 +724,7 @@ width:3%;
     padding: 20px 0 0 0 !important;
     display: block;
     word-wrap: break-word;
+	    margin-bottom: 5px;
 
 
 }

@@ -1,14 +1,8 @@
  {% extends 'base.html'%}
 {% load staticfiles %}
 			{%block main%}
-<div id="toptitle" style="margin-bottom:30px">
-        <h1 class="htitle" id="htitle" style="    color: #343434;
-    font-size: 38px;
-    font-weight: 700;">
-            您的信息如下,请继续支付</h1>
-    </div>
 {%for k in st%}
-<div style="position:relative">
+<div style="position:relative;margin-top:5px">
 <h4>
 <p style="position:relative;margin-bottom:5px">{{forloop.counter}}.{{k.0}}:</p>
 </h4>
@@ -22,9 +16,9 @@
 {%endfor%}
 <hr style="border-top: 2px solid #ddd;">
 <div align="left" style="float:left">
-	<p><button class="btn btn-primary" data-toggle="button" onclick="location='{% url 'enroll:zhifubao' money  %}'">支付宝支付</button></p>
+	<p><button class="btn btn-primary" data-toggle="button" onclick="location='{% url 'enroll:zhifubao' money  %}'">支付宝支付车票</button></p>
     </div>
     <div align="right">
-	<p><button class="btn btn-primary" data-toggle="button" onclick="location='{% url 'enroll:weixin' money %}'">微信支付</button></p>
+	<p><button class="btn btn-primary" data-toggle="button" onclick="location='{% url 'enroll:weixin' money %}'">微信支付车票</button></p>
     </div>
 {%endblock%}

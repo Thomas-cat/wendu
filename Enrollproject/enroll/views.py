@@ -34,9 +34,8 @@ def Download2(request):
 	for column in sheet.columns:
 		for cell in column:
 			cell.font = Font(size=18)
-
-	wb.save('./xianchang.xlsx')
-	file=open('./xianchang.xlsx','rb')
+	wb.save('xianchang.xlsx')
+	file=open('xianchang.xlsx','rb')
 	response =FileResponse(file)
 	response['Content-Type']='application/octet-stream'
 	response['Content-Disposition']='attachment;filename="xianchang.xlsx"'
