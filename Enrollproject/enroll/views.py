@@ -8,27 +8,30 @@ from openpyxl.styles import Font
 from operator import itemgetter
 import logging
 import time
+import pytz
 def Download2(request):
 	wb = openpyxl.Workbook()
 	sheet = wb.active
 	sheet.title = '文都考研现场确认报名表'
-	value = [['姓名','性别','手机','QQ','乘车日期','乘车班次','单双程','学员','票价','12月份住宿等服务','专业','报考学院','报考专业']]
+	value = [['姓名','性别','手机','QQ','乘车日期','乘车班次','单双程','学员','票价','12月份住宿等服务','专业','报考学院','报考专业','提交时间']]
 	raw_data = []
 	a = Student2.objects.all()
+	shanghai = pytz.timezone("Asia/Shanghai")	
 	for item in a:
 		if item.is_need == True:
 			is_need = '是'
 		else:
 			is_need = '否'
-		temp = [item.name,item.sex,item.phone,item.qq,item.ride_date,item.ride_time,item.is_return,item.is_enroll,item.price,is_need,item.major,item.obj_school,item.obj_major]
+		temp_time = shanghai.normalize(item.modifed_date.astimezone(shanghai))
+		temp_time = str(temp_time).split('.')[0]
+		temp = [item.name,item.sex,item.phone,item.qq,item.ride_date,item.ride_time,item.is_return,item.is_enroll,item.price,is_need,item.major,item.obj_school,item.obj_major,temp_time]
 		raw_data.append(temp)
-	
-	for item in sorted(raw_data,key=itemgetter(1,4,5,6)):
+	for item in raw_data:
 		value.append(item)
 	for i in range(len(value)):
 		for j in range(len(value[i])):
 			sheet.cell(row=i+1, column=j+1, value=str(value[i][j]))
-	for i in ['A','B','C','D','E','F','G','H','I','J','K','L','M']:
+	for i in ['A','B','C','D','E','F','G','H','I','J','K','L','M','N']:
 		sheet.column_dimensions[i].width =25
 
 	for column in sheet.columns:
@@ -68,7 +71,7 @@ def Download(request):
 	response['Content-Disposition']='attachment;filename="zhitongche.xlsx"'
 	return response
 def index(request):
-	return render(request, 'enroll/index2.html')
+	return render(request, 'enroll/index.html')
 def Enroll(request):
 	if request.method == 'POST':
 		form = StudentForm(request.POST)

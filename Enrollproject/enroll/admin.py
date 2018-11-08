@@ -3,8 +3,8 @@ from .models import Student,Student2
 
 class StudentAdmin2(admin.ModelAdmin):
 	list_display = ['name','sex','phone','qq', 'is_enroll','is_return','ride_date','ride_time','price','is_need','major','obj_school','obj_major','modifed_date']
-	search_fields =('name','phone','qq','major','ride_date','is_enroll')
-	list_filter =('ride_date','ride_time','modifed_date',)
+	search_fields =('name','phone','qq','major','is_enroll','obj_school','obj_major')
+	list_filter =('ride_date','ride_time','is_enroll',)
 	list_per_page = 50
 	ordering = ('-modifed_date',)
 class StudentAdmin(admin.ModelAdmin):

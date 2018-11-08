@@ -20,11 +20,11 @@ class Student2(models.Model):
 	major = models.CharField(max_length = 100,blank=False,verbose_name = '所在专业')
 	phone = models.CharField(max_length=11,blank=False,verbose_name = '手机号')
 
-	is_return = models.CharField(max_length=40,blank=False,verbose_name = '是否往返')
+	is_return = models.CharField(max_length=40,blank=False,verbose_name = '单程/双程')
 	is_need = models.BooleanField(blank=True,verbose_name = '12月份是否需要提供服务')
 	is_enroll = models.CharField(max_length = 4,blank=False,verbose_name = '是否学员')
 	sex = models.CharField(max_length=10,blank=False,verbose_name = '性别')
-	modifed_date = models.DateTimeField(auto_now_add=True,verbose_name ='信息提交时间')
+	modifed_date = models.DateTimeField(auto_now_add=True,verbose_name ='提交时间')
 	ride_date = models.CharField(max_length=20,blank=False,verbose_name ='乘车日期')
 	ride_time = models.CharField(max_length=20,blank=False,verbose_name ='乘车班次')
 	price = models.CharField(max_length = 4,blank = False,verbose_name = '票价')
