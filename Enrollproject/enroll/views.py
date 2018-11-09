@@ -185,3 +185,5 @@ def zhifubao(request,money):
 	return render(request,'enroll/zhifubao_%s.html'%(str(money)))
 def weixin(request,money):
 	return render(request,'enroll/weixin_%s.html'%(str(money)))
+def PreEnroll(request):
+	return render(request,'enroll/pre_enroll.html')
