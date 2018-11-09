@@ -339,9 +339,6 @@
 	
 	
 	
-	
-	
-	
 </script>
 <style type="text/css">
 html{width: 100%; height: 100%;}
@@ -395,6 +392,8 @@ body{
 									<span class="input__label-content input__label-content--hideo"></span>
 								</label>
 							</span>
+
+
 							<span class="input input--hideo">
 								<input class="input__field input__field--hideo" type="password" id="login-password" placeholder="请输入密码" tabindex="2" maxlength="15"/>
 								<label class="input__label input__label--hideo" for="login-password">
@@ -458,7 +457,8 @@ body{
 			</div>
 			<!-- 注册页面 -->
 			<div class="login sign-up-htm">
-				<form action="#" method="post" class="container offset1 loginform">
+				<form action="{% url 'enroll:PreEnroll' %}" method="post" class="container offset1 loginform comment-form">
+					{% csrf_token %}
 					<!-- 猫头鹰控件 -->
 					<div id="owl-login" class="register-owl">
 						<div class="hand"></div>
@@ -474,31 +474,124 @@ body{
 								<input class="input__field input__field--hideo" type="text" id="register-username" 
 									autocomplete="off" placeholder="请输入用户名" maxlength="15"/>
 								<label class="input__label input__label--hideo" for="register-username">
-									<i class="fa fa-fw fa-user icon icon--hideo"></i>
 									<span class="input__label-content input__label-content--hideo"></span>
 								</label>
 							</span>
 							<span class="input input--hideo">
 								<input class="input__field input__field--hideo" type="password" id="register-password" placeholder="请输入密码" maxlength="15"/>
 								<label class="input__label input__label--hideo" for="register-password">
-									<i class="fa fa-fw fa-lock icon icon--hideo"></i>
 									<span class="input__label-content input__label-content--hideo"></span>
 								</label>
 							</span>
-							<span class="input input--hideo">
-								<input class="input__field input__field--hideo" type="password" id="register-repassword" placeholder="请确认密码" maxlength="15"/>
-								<label class="input__label input__label--hideo" for="register-repassword">
-									<i class="fa fa-fw fa-lock icon icon--hideo"></i>
-									<span class="input__label-content input__label-content--hideo"></span>
-								</label>
-							</span>
-							<span class="input input--hideo">
-								<input class="input__field input__field--hideo" type="text" id="register-code" autocomplete="off" placeholder="请输入注册码"/>
-								<label class="input__label input__label--hideo" for="register-code">
-									<i class="fa fa-fw fa-wifi icon icon--hideo"></i>
-									<span class="input__label-content input__label-content--hideo"></span>
-								</label>
-							</span>
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-md-12">
+	  <div class="field-label"> 姓名：</div>
+      {{ form.name }}
+      {{ form.name.errors }}
+    </div>
+    <div class="col-md-12">
+	  <div class="field-label"> 性别：</div>
+      {{ form.sex }}
+      {{ form.sex.errors }}
+    </div>
+    <div class="col-md-12">
+	  <div class="field-label"> 手机号：</div>
+      {{ form.phone }}
+      {{ form.phone.errors }}
+    </div>
+    <div class="col-md-12">
+	  <div class="field-label" > QQ号：</div>
+      {{ form.qq }}
+      {{ form.qq.errors }}
+    </div>
+    <div class="col-md-12">
+	  <div class="field-label"> 专业：</div>
+      {{ form.major }}
+      {{ form.major.errors }}
+    </div>
+    <div class="col-md-12">
+	  <div class="field-label"> 报考学校：</div>
+      {{ form.obj_school }}
+      {{ form.obj_school.errors }}
+    </div>
+    <div class="col-md-12">
+	  <div class="field-label"> 报考专业：</div>
+      {{ form.obj_major }}
+      {{ form.obj_major.errors }}
+    </div>
+    <div class="col-md-12">
+	  <div class="field-label"> 是否学员：</div>
+      {{ form.is_enroll }}
+      {{ form.is_enroll.errors }}
+    </div>
+    <div class="col-md-12">
+	  <div class="field-label"> 单程/双程 (<span style='color:red'>学员:20/40,非学员:25/45</span>)：</div>
+      {{ form.is_return }}
+      {{ form.is_return.errors }}
+    </div>
+    <div class="col-md-12">
+	  <div class="field-label"> 乘车日期：</div>
+      {{ form.ride_date }}
+      {{ form.ride_date.errors }}
+    </div>
+    <div class="col-md-12">
+	  <div class="field-label"> 乘车时间：</div>
+      {{ form.ride_time }}
+      {{ form.ride_time.errors }}
+    </div>
+    <div class="col-md-12">
+	  <div class="field-label">十二月份考研是否需要住宿,大巴车,餐饮服务：</div>
+      {{ form.is_need }}
+      {{ form.is_need.errors }}
+    </div>
+
+<script type="text/javascript">
+/*remove url of alert/confirm*/  
+var wAlert = window.alert;  
+window.alert = function (message) {  
+    try {  
+        var iframe = document.createElement("IFRAME");  
+        iframe.style.display = "none";  
+        iframe.setAttribute("src", 'data:text/plain,');  
+        document.documentElement.appendChild(iframe);  
+        var alertFrame = window.frames[0];  
+        var iwindow = alertFrame.window;  
+        if (iwindow == undefined) {  
+            iwindow = alertFrame.contentWindow;  
+        }  
+        iwindow.alert(message);  
+        iframe.parentNode.removeChild(iframe);  
+    }  
+    catch (exc) {  
+        return wAlert(message);  
+    }  
+}  
+var wConfirm = window.confirm;  
+window.confirm = function (message) {  
+    try {  
+        var iframe = document.createElement("IFRAME");  
+        iframe.style.display = "none";  
+        iframe.setAttribute("src", 'data:text/plain,');  
+        document.documentElement.appendChild(iframe);  
+        var alertFrame = window.frames[0];  
+        var iwindow = alertFrame.window;  
+        if (iwindow == undefined) {  
+            iwindow = alertFrame.contentWindow;  
+        }  
+        var result=iwindow.confirm(message);  
+        iframe.parentNode.removeChild(iframe);  
+        return result;
+    }  
+    catch (exc) {  
+        return wConfirm(message);  
+    }  
+} 
+</script>
+
+	  <div class='col-md-12' style="margin-top:10px"><button type="submit" id="fat-btn" class="btn btn-primary"  style="    min-width: 120px;" onclick="javascript:return(confirm('请确认信息是否无误?'));">提交</button></div>
+    </div>
+  </div>    <!-- row -->
 						</section>
 					</div>
 					<div class="form-actions">

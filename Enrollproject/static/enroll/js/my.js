@@ -1,5 +1,14 @@
         $(document).ready(function() {
         //绑定下拉框change事件，当下来框改变时调用 SelectChange()方法
+     $("#id_major").change(function() {
+            content=$(this).find("option:selected").attr("value");
+            $("#id_area option[value='迁安']").remove();
+            $("#id_area").append("<option value='迁安'>迁安</option>"); 
+
+            if(content=="医学"){
+            $("#id_area option[value='迁安']").remove();
+            };  
+
      $("#id_ride_date").change(function() {
             content=$(this).find("option:selected").attr("value");
             $("#id_ride_time option[value='07.00']").remove();

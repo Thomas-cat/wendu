@@ -16,9 +16,7 @@
 {%endfor%}
 <hr style="border-top: 2px solid #ddd;">
 <div align="left" style="float:left">
-	<p><button class="btn btn-primary" data-toggle="button" onclick="location='{% url 'enroll:zhifubao' money  %}'">支付宝支付车票</button></p>
-    </div>
-    <div align="right">
-	<p><button class="btn btn-primary" data-toggle="button" onclick="location='{% url 'enroll:weixin' money %}'">微信支付车票</button></p>
+    <div >
+	<p><button class="btn btn-primary" data-toggle="button" onclick="location='{% url 'enroll:weixin' money %}'">支付预付定金</button></p>
     </div>
 {%endblock%}

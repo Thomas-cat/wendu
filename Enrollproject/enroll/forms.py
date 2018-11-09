@@ -1,5 +1,6 @@
 from django import forms
 import datetime
+
 class StudentForm(forms.Form):
 	name = forms.CharField(max_length = 20,strip=True,required=True)
 	qq = forms.CharField(max_length = 12,min_length=6,strip=True,required=False)
@@ -10,6 +11,16 @@ class StudentForm(forms.Form):
 	is_enroll = forms.BooleanField(required=False)
 	fields = ['name','qq','obj_school','institute','major','phone','is_enroll']
 
+
+class PreEnrollForm(forms.Form):
+	name = forms.CharField(max_length = 20,strip=True,required=True)
+	phone = forms.CharField(max_length=11,min_length=11,strip=True,required=True)
+	major = forms.ChoiceField(choices=(('管联','管联'),('医学','医学'),('建工','建工'),('其它','其它')),required=True)
+	area = forms.ChoiceField(choices=(('市区','市区'),('曹妃甸','曹妃甸'),('迁安','迁安')),required=True)
+	need_bus = forms.ChoiceField(choices=(('否','否'),('是','是')),required=True,initial=0)
+	need_dorm = forms.ChoiceField(choices=(('否','否'),('是','是')),required=True,initial=0)
+	need_lunch = forms.ChoiceField(choices=(('否','否'),('是','是')),required=True,initial=0)
+	fields = ['name','phone','need_bus','need_dorm','need_lunch','area','major']
 
 class StudentForm2(forms.Form):
 	name = forms.CharField(max_length = 20,strip=True,required=True)

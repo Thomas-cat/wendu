@@ -1,13 +1,4 @@
 from django.db import models
-class YuBaoMing(models.Model):
-	name = models.CharField(max_length = 20,verbose_name='姓名',blank=False)
-	qq = models.CharField(max_length = 12,blank=True)
-	phone = models.CharField(max_length=11,blank=False,verbose_name = '手机号')
-	modifed_date = models.DateTimeField(auto_now_add=True,verbose_name ='信息提交时间')
-	class Meta:
-		 verbose_name_plural='12月预报名'
-	def __str__(self):	 	
-		return self.name
 class Student(models.Model):
 	name = models.CharField(max_length = 20,verbose_name='姓名',blank=False)
 	qq = models.CharField(max_length = 12,blank=True)
@@ -19,6 +10,19 @@ class Student(models.Model):
 	modifed_date = models.DateTimeField(auto_now_add=True,verbose_name ='信息提交时间')
 	class Meta:
 		 verbose_name_plural='文都直通车'
+	def __str__(self):	 	
+		return self.name
+class YuBaoMing(models.Model):
+	name = models.CharField(max_length = 20,verbose_name='姓名',blank=False)
+	phone = models.CharField(max_length=11,blank=False,verbose_name = '手机号')
+	modifed_date = models.DateTimeField(auto_now_add=True,verbose_name ='提交时间')
+	need_dorm = models.CharField(max_length = 4,blank=False,verbose_name = '酒店')
+	need_bus = models.CharField(max_length = 4,blank=False,verbose_name = '大巴车')
+	need_lunch = models.CharField(max_length = 4,blank=False,verbose_name = '午餐')
+	major = models.CharField(max_length = 4,blank=False,verbose_name = '专业')
+	area = models.CharField(max_length = 4,blank=False,verbose_name = '地点')
+	class Meta:
+		 verbose_name_plural='12月预报名'
 	def __str__(self):	 	
 		return self.name
 class Student2(models.Model):

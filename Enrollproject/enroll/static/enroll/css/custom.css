@@ -702,8 +702,8 @@ font-size: 24px;
     border: 1px solid #e0e0e0;
     margin: 5px 0;
     background-color: #fff;
-    padding: 10px;
-    border-radius: 3px;
+    padding: 5px;
+    border-radius: 4px;
 	width:100%;
 	    border-color: #acacac;
 }
@@ -721,11 +721,9 @@ width:3%;
     position: relative;
     font-size: 16px !important;
     font-weight: bold;
-    padding: 20px 0 0 0 !important;
     display: block;
     word-wrap: break-word;
-	    margin-bottom: 5px;
-
+	text-align:left;
 
 }
 .contact-form textarea, .comment-form textarea {

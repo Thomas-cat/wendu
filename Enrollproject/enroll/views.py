@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import StudentForm,StudentForm2
-from .models import Student,Student2
+from .forms import StudentForm,StudentForm2,PreEnrollForm
+from .models import Student,Student2,YuBaoMing
 import re
 import openpyxl
 from django.http import FileResponse
@@ -108,6 +108,40 @@ def Enroll(request):
 			return render(request, 'enroll/enroll_ok.html', {'message':'[%s]同学报名成功,点击返回'%request.POST['name']})
 	form = StudentForm()
 	return render(request, 'enroll/enroll.html', {'form':form})
+def PreEnroll(request,*args,**kwargs):
+	if request.method == 'POST':
+		form = PreEnrollForm(request.POST)
+		if form.is_valid():
+			logging.debug("ohiuh");
+			context = {'form':form}
+			u = request.POST.get('name')
+			m = request.POST.get('major')
+			p = request.POST.get('phone')
+			need_bus = request.POST.get('need_bus')
+			need_lunch = request.POST.get('need_lunch')
+			need_dorm = request.POST.get('need_dorm')
+			temp = YuBaoMing.objects.filter(name=u,phone=p)
+			if temp:
+				ph = temp[0].phone
+				name = temp[0].name
+				context.update({'message':'已提交信息,请勿重复提交','ph':ph,'name':name})
+				return render(request, 'enroll/PreEnroll.html', context=context)
+			reg = re.compile(r'^1[0-9]{10}$')	
+			if reg.match(p) == None:
+				context.update({'message':'手机号请正确填写'})
+				return render(request, 'enroll/PreEnroll.html', context=context)
+			data = [['姓名',u],['手机',p],['专业',m],['订住酒店',need_dorm],['大巴车',need_bus],['午餐','need_lunch']]
+			YuBaoMing.objects.create(
+			name = u,
+			major = m,
+			phone = p,
+			need_lunch = need_lunch,
+			need_bus = need_bus,
+			need_dorm = need_dorm,
+			)
+			return render(request,'enroll/enroll2_ok.html',{'st':data,'money':100,'message':'您的信息如下'})
+	form = PreEnrollForm()
+	return render(request, 'enroll/PreEnroll.html', {'form':form})
 def Enroll2(request,*args,**kwargs):
 	logging.debug(args)
 	if request.method == 'POST':
@@ -185,5 +219,3 @@ def zhifubao(request,money):
 	return render(request,'enroll/zhifubao_%s.html'%(str(money)))
 def weixin(request,money):
 	return render(request,'enroll/weixin_%s.html'%(str(money)))
-def PreEnroll(request):
-	return render(request,'enroll/pre_enroll.html')
