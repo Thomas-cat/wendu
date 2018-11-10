@@ -11,6 +11,61 @@ import time
 import pytz
 def Download2(request):
 	wb = openpyxl.Workbook()
+	sheet0 = wb.active
+	sheet0.title = '管联'
+	sheet1 = wb.create_sheet(title="医学")
+	sheet2 = wb.create_sheet(title="建工")
+	sheet3 = wb.create_sheet(title="其它")
+
+	raw_data = [[],[],[],[]]
+	value = [
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
+				]
+	a = YuBaoMing.objects.all()
+	shanghai = pytz.timezone("Asia/Shanghai")	
+	for item in a:
+		temp_time = shanghai.normalize(item.modifed_date.astimezone(shanghai))
+		temp_time = str(temp_time).split('.')[0]
+		temp = [item.name,item.phone,item.major,item.area,item.need_dorm,item.need_bus,item.need_lunch,temp_time]
+		if item.major == "管联":
+			raw_data[0].append(temp)
+		elif item.major == "医学":
+			raw_data[1].append(temp)
+		elif item.major == "建工":
+			raw_data[2].append(temp)
+		else:
+			raw_data[3].append(temp)
+	for k in range(0,4):
+		for temp in raw_data[k]:
+			value[k].append(temp)
+
+	sheetnames = wb.get_sheet_names()
+	for k in range(0,4):
+		ws = wb.get_sheet_by_name(sheetnames[k])
+		for i in range(len(value[k])):
+			for j in range(len(value[k][i])):
+				ws.cell(row=i+1, column=j+1, value=str(value[k][i][j]))
+	for k in range(0,4):
+		ws = wb.get_sheet_by_name(sheetnames[k])
+		for i in ['A','B','C','D','E','F','G']:
+			ws.column_dimensions[i].width =25
+	for  k in range(0,4):
+		ws = wb.get_sheet_by_name(sheetnames[k])
+		for column in ws:
+			for cell in column:
+				cell.font = Font(size=18)
+	wb.save('PreEnroll.xlsx')
+	file=open('PreEnroll.xlsx','rb')
+	response =FileResponse(file)
+	response['Content-Type']='application/octet-stream'
+	response['Content-Disposition']='attachment;filename="YuBaoMing.xlsx"'
+	return response
+
+def Download3(request):
+	wb = openpyxl.Workbook()
 	sheet = wb.active
 	sheet.title = '文都考研现场确认报名表'
 	value = [['姓名','性别','手机','QQ','乘车日期','乘车班次','单双程','学员','票价','12月份住宿等服务','专业','报考学院','报考专业','提交时间']]
@@ -112,11 +167,11 @@ def PreEnroll(request,*args,**kwargs):
 	if request.method == 'POST':
 		form = PreEnrollForm(request.POST)
 		if form.is_valid():
-			logging.debug("ohiuh");
 			context = {'form':form}
 			u = request.POST.get('name')
 			m = request.POST.get('major')
 			p = request.POST.get('phone')
+			a = request.POST.get('area')
 			need_bus = request.POST.get('need_bus')
 			need_lunch = request.POST.get('need_lunch')
 			need_dorm = request.POST.get('need_dorm')
@@ -124,22 +179,23 @@ def PreEnroll(request,*args,**kwargs):
 			if temp:
 				ph = temp[0].phone
 				name = temp[0].name
-				context.update({'message':'已提交信息,请勿重复提交','ph':ph,'name':name})
+				context.update({'message1':'已提交信息,请勿重复提交','ph':ph,'name':name})
 				return render(request, 'enroll/PreEnroll.html', context=context)
 			reg = re.compile(r'^1[0-9]{10}$')	
 			if reg.match(p) == None:
-				context.update({'message':'手机号请正确填写'})
+				context.update({'message2':'手机号请正确填写'})
 				return render(request, 'enroll/PreEnroll.html', context=context)
-			data = [['姓名',u],['手机',p],['专业',m],['订住酒店',need_dorm],['大巴车',need_bus],['午餐','need_lunch']]
+			data = [['姓名',u],['手机',p],['专业',m],['出发地',a],['订住酒店',need_dorm],['大巴车',need_bus],['午餐','need_lunch']]
 			YuBaoMing.objects.create(
 			name = u,
 			major = m,
 			phone = p,
+			area = a,
 			need_lunch = need_lunch,
 			need_bus = need_bus,
 			need_dorm = need_dorm,
 			)
-			return render(request,'enroll/enroll2_ok.html',{'st':data,'money':100,'message':'您的信息如下'})
+			return render(request,'enroll/enroll2_ok.html',{'st':data,'money':100})
 	form = PreEnrollForm()
 	return render(request, 'enroll/PreEnroll.html', {'form':form})
 def Enroll2(request,*args,**kwargs):

@@ -7,8 +7,8 @@
 
             if(content=="医学"){
             $("#id_area option[value='迁安']").remove();
-            };  
-
+     	       };  
+			});
      $("#id_ride_date").change(function() {
             content=$(this).find("option:selected").attr("value");
             $("#id_ride_time option[value='07.00']").remove();

@@ -5,12 +5,13 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>登录</title>
+<title>文都教育12月预报名</title>
 
 
     <!-- css -->
     <link rel="stylesheet" href="{% static 'enroll/css/custom.css' %}">
 <script src="{% static 'enroll/js/script.js' %}"></script>
+ <link rel="shortcut icon" href="{% static 'blog/img/favicon.ico' %}" type="image/x-icon">
 
 
 <link rel="stylesheet" href="{% static  'mao/css/normalize.css' %}">
@@ -89,6 +90,7 @@ body{
   <div class="row">
     <div class="col-md-12" style="padding-left:30px;padding-right:30px">
 	  <div class="field-label"> <h3 style="font-size:20px">文都12月考研住宿预报名</h3></div>
+
     </div>
     <div class="col-md-12" style="padding-left:30px;padding-right:30px">
 	  <div class="field-label"> 姓名：</div>
@@ -174,7 +176,15 @@ window.confirm = function (message) {
     catch (exc) {  
         return wConfirm(message);  
     }  
-} 
+}	 
+	  {% if message1 %}
+	  alert("您已提交信息,请勿重复报名");
+	  {% else %}
+	  {% if message2 %}
+	  alert("手机号填写错误");
+	  document.getElementById("state").style.display="none";
+	  {%endif%}
+	  {%endif%}
 </script>
 	  <div class='col-md-12' style="margin-top:10px">
 	  <button type="button" id="fat-btn" class="btn btn-primary"  style="background-color:#ff000082;border-color:#ff000082;min-width:100px;" onclick="javascript:document.getElementById('state').style.display='block';">详情说明</button>
