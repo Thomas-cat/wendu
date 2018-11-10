@@ -75,7 +75,7 @@ body{
 			</li>
 			</ul>
 			</div>
-				<form action="{% url 'enroll:PreEnroll'%}" method="post" class="container offset1 loginform comment-form" style="max-width:80%;" id="form" >
+				<form action="{% url 'enroll:PreEnroll'%}" method="post" class="container offset1 loginform comment-form" style="max-width:80%;margin-bottom:20px" id="form" >
 					{% csrf_token %}
 					<!-- 猫头鹰控件 -->
 					<div id="owl-login" class="register-owl">
@@ -130,7 +130,7 @@ body{
     </div>
 <script type="text/javascript">
 var s=document.getElementById("test").scrollHeight;
-document.getElementById("state").style.height=s+30+"px";
+document.getElementById("state").style.height=s-20+"px";
 
 $(".pad").css("color","rgba(255, 0, 0, 0.6)");
 $(".input-container").css("background-color","#0e2e8533");
