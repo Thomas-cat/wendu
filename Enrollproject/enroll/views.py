@@ -185,7 +185,7 @@ def PreEnroll(request,*args,**kwargs):
 			if reg.match(p) == None:
 				context.update({'message2':'手机号请正确填写'})
 				return render(request, 'enroll/PreEnroll.html', context=context)
-			data = [['姓名',u],['手机',p],['专业',m],['出发地',a],['订住酒店',need_dorm],['大巴车',need_bus],['午餐','need_lunch']]
+			data = [['姓名',u],['手机',p],['专业',m],['出发地',a],['订住酒店',need_dorm],['大巴车',need_bus],['午餐',need_lunch]]
 			YuBaoMing.objects.create(
 			name = u,
 			major = m,
