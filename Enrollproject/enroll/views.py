@@ -9,7 +9,7 @@ from operator import itemgetter
 import logging
 import time
 import pytz
-def Download2(request):
+def Download3(request):
 	wb = openpyxl.Workbook()
 	sheet0 = wb.active
 	sheet0.title = '管联'
@@ -50,7 +50,7 @@ def Download2(request):
 				ws.cell(row=i+1, column=j+1, value=str(value[k][i][j]))
 	for k in range(0,4):
 		ws = wb.get_sheet_by_name(sheetnames[k])
-		for i in ['A','B','C','D','E','F','G']:
+		for i in ['A','B','C','D','E','F','G','H']:
 			ws.column_dimensions[i].width =25
 	for  k in range(0,4):
 		ws = wb.get_sheet_by_name(sheetnames[k])
@@ -64,7 +64,7 @@ def Download2(request):
 	response['Content-Disposition']='attachment;filename="YuBaoMing.xlsx"'
 	return response
 
-def Download3(request):
+def Download2(request):
 	wb = openpyxl.Workbook()
 	sheet = wb.active
 	sheet.title = '文都考研现场确认报名表'
