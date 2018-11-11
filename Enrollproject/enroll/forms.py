@@ -15,10 +15,10 @@ class StudentForm(forms.Form):
 class PreEnrollForm(forms.Form):
 	name = forms.CharField(max_length = 20,strip=True,required=True)
 	phone = forms.CharField(max_length=11,min_length=11,strip=True,required=True)
-	major = forms.ChoiceField(choices=(('管联','管联'),('医学','医学'),('建工','建工'),('其它','其它')),required=True)
+	major = forms.ChoiceField(choices=(('管联','管联'),('医学','医学(考试科目三科)'),('建工','建工(考试时间三天)'),('其它','其它')),required=True)
 	area = forms.ChoiceField(choices=(('市区','市区'),('曹妃甸','曹妃甸'),('迁安','迁安')),required=True)
-	need_bus = forms.ChoiceField(choices=(('否','否'),('是','是')),required=True,initial=0)
-	need_dorm = forms.ChoiceField(choices=(('否','否'),('是','是')),required=True,initial=0)
+	need_bus = forms.ChoiceField(choices=(('单程去','单程去'),('双程','双程')),required=True,initial=0)
+	need_dorm = forms.ChoiceField(choices=(('单人间','单人间'),('双人间','双人间')),required=True,initial=0)
 	need_lunch = forms.ChoiceField(choices=(('否','否'),('是','是')),required=True,initial=0)
 	fields = ['name','phone','need_bus','need_dorm','need_lunch','area','major']
 

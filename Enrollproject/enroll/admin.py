@@ -10,6 +10,8 @@ class StudentAdmin2(admin.ModelAdmin):
 class YuBaoMingAdmin(admin.ModelAdmin):
 	list_display = ['name','phone','major','area','need_dorm','need_bus','need_lunch','modifed_date']
 	list_per_page = 50
+	list_filter =('area','major',)
+	search_fields =('name','phone','area','major')
 	ordering = ('-modifed_date',)
 class StudentAdmin(admin.ModelAdmin):
 	list_display = ['name', 'phone','qq', 'is_enroll','institute','major','obj_school','modifed_date']

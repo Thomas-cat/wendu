@@ -9,7 +9,7 @@ from operator import itemgetter
 import logging
 import time
 import pytz
-def Download3(request):
+def Download5(request):
 	wb = openpyxl.Workbook()
 	sheet0 = wb.active
 	sheet0.title = '管联'
@@ -24,7 +24,7 @@ def Download3(request):
 			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
 			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
 				]
-	a = YuBaoMing.objects.all()
+	a = YuBaoMing.objects.all().filter(area = '迁安')
 	shanghai = pytz.timezone("Asia/Shanghai")	
 	for item in a:
 		temp_time = shanghai.normalize(item.modifed_date.astimezone(shanghai))
@@ -57,11 +57,119 @@ def Download3(request):
 		for column in ws:
 			for cell in column:
 				cell.font = Font(size=18)
-	wb.save('PreEnroll.xlsx')
-	file=open('PreEnroll.xlsx','rb')
+	wb.save('QianAn.xlsx')
+	file=open('QianAn.xlsx','rb')
 	response =FileResponse(file)
 	response['Content-Type']='application/octet-stream'
-	response['Content-Disposition']='attachment;filename="YuBaoMing.xlsx"'
+	response['Content-Disposition']='attachment;filename="QianAn.xlsx"'
+	return response
+def Download4(request):
+	wb = openpyxl.Workbook()
+	sheet0 = wb.active
+	sheet0.title = '管联'
+	sheet1 = wb.create_sheet(title="医学")
+	sheet2 = wb.create_sheet(title="建工")
+	sheet3 = wb.create_sheet(title="其它")
+
+	raw_data = [[],[],[],[]]
+	value = [
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
+				]
+	a = YuBaoMing.objects.all().filter(area = '曹妃甸')
+	shanghai = pytz.timezone("Asia/Shanghai")	
+	for item in a:
+		temp_time = shanghai.normalize(item.modifed_date.astimezone(shanghai))
+		temp_time = str(temp_time).split('.')[0]
+		temp = [item.name,item.phone,item.major,item.area,item.need_dorm,item.need_bus,item.need_lunch,temp_time]
+		if item.major == "管联":
+			raw_data[0].append(temp)
+		elif item.major == "医学":
+			raw_data[1].append(temp)
+		elif item.major == "建工":
+			raw_data[2].append(temp)
+		else:
+			raw_data[3].append(temp)
+	for k in range(0,4):
+		for temp in raw_data[k]:
+			value[k].append(temp)
+
+	sheetnames = wb.get_sheet_names()
+	for k in range(0,4):
+		ws = wb.get_sheet_by_name(sheetnames[k])
+		for i in range(len(value[k])):
+			for j in range(len(value[k][i])):
+				ws.cell(row=i+1, column=j+1, value=str(value[k][i][j]))
+	for k in range(0,4):
+		ws = wb.get_sheet_by_name(sheetnames[k])
+		for i in ['A','B','C','D','E','F','G','H']:
+			ws.column_dimensions[i].width =25
+	for  k in range(0,4):
+		ws = wb.get_sheet_by_name(sheetnames[k])
+		for column in ws:
+			for cell in column:
+				cell.font = Font(size=18)
+	wb.save('CaoFeiDian.xlsx')
+	file=open('CaoFeiDian.xlsx','rb')
+	response =FileResponse(file)
+	response['Content-Type']='application/octet-stream'
+	response['Content-Disposition']='attachment;filename="CaoFeiDian.xlsx"'
+	return response
+def Download3(request):
+	wb = openpyxl.Workbook()
+	sheet0 = wb.active
+	sheet0.title = '管联'
+	sheet1 = wb.create_sheet(title="医学")
+	sheet2 = wb.create_sheet(title="建工")
+	sheet3 = wb.create_sheet(title="其它")
+
+	raw_data = [[],[],[],[]]
+	value = [
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
+				]
+	a = YuBaoMing.objects.all().filter(area = '市区')
+	shanghai = pytz.timezone("Asia/Shanghai")	
+	for item in a:
+		temp_time = shanghai.normalize(item.modifed_date.astimezone(shanghai))
+		temp_time = str(temp_time).split('.')[0]
+		temp = [item.name,item.phone,item.major,item.area,item.need_dorm,item.need_bus,item.need_lunch,temp_time]
+		if item.major == "管联":
+			raw_data[0].append(temp)
+		elif item.major == "医学":
+			raw_data[1].append(temp)
+		elif item.major == "建工":
+			raw_data[2].append(temp)
+		else:
+			raw_data[3].append(temp)
+	for k in range(0,4):
+		for temp in raw_data[k]:
+			value[k].append(temp)
+
+	sheetnames = wb.get_sheet_names()
+	for k in range(0,4):
+		ws = wb.get_sheet_by_name(sheetnames[k])
+		for i in range(len(value[k])):
+			for j in range(len(value[k][i])):
+				ws.cell(row=i+1, column=j+1, value=str(value[k][i][j]))
+	for k in range(0,4):
+		ws = wb.get_sheet_by_name(sheetnames[k])
+		for i in ['A','B','C','D','E','F','G','H']:
+			ws.column_dimensions[i].width =25
+	for  k in range(0,4):
+		ws = wb.get_sheet_by_name(sheetnames[k])
+		for column in ws:
+			for cell in column:
+				cell.font = Font(size=18)
+	wb.save('ShiQu.xlsx')
+	file=open('ShiQu.xlsx','rb')
+	response =FileResponse(file)
+	response['Content-Type']='application/octet-stream'
+	response['Content-Disposition']='attachment;filename="ShiQu.xlsx"'
 	return response
 
 def Download2(request):
