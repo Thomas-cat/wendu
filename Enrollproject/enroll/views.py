@@ -20,17 +20,21 @@ def Download5(request):
 
 	raw_data = [[],[],[],[]]
 	value = [
-			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
-			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
-			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
-			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐','完成预报名支付','信息提交时间']],
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐','完成预报名支付','信息提交时间']],
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐','完成预报名支付','信息提交时间']],
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐','完成预报名支付','信息提交时间']],
 				]
 	a = YuBaoMing.objects.all().filter(area = '迁安')
 	shanghai = pytz.timezone("Asia/Shanghai")	
 	for item in a:
 		temp_time = shanghai.normalize(item.modifed_date.astimezone(shanghai))
 		temp_time = str(temp_time).split('.')[0]
-		temp = [item.name,item.phone,item.major,item.area,item.need_dorm,item.need_bus,item.need_lunch,temp_time]
+		if item.is_pay==True:
+			flag = '是'
+		else:
+			flag = '否'
+		temp = [item.name,item.phone,item.major,item.area,item.need_dorm,item.need_bus,item.need_lunch,flag,temp_time]
 		if item.major == "管联":
 			raw_data[0].append(temp)
 		elif item.major == "医学":
@@ -51,7 +55,7 @@ def Download5(request):
 				ws.cell(row=i+1, column=j+1, value=str(value[k][i][j]))
 	for k in range(0,4):
 		ws = wb.get_sheet_by_name(sheetnames[k])
-		for i in ['A','B','C','D','E','F','G','H']:
+		for i in ['A','B','C','D','E','F','G','H','I']:
 			ws.column_dimensions[i].width =25
 	for  k in range(0,4):
 		ws = wb.get_sheet_by_name(sheetnames[k])
@@ -74,17 +78,21 @@ def Download4(request):
 
 	raw_data = [[],[],[],[]]
 	value = [
-			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
-			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
-			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
-			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐','完成预报名支付','信息提交时间']],
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐','完成预报名支付','信息提交时间']],
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐','完成预报名支付','信息提交时间']],
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐','完成预报名支付','信息提交时间']],
 				]
 	a = YuBaoMing.objects.all().filter(area = '曹妃甸')
 	shanghai = pytz.timezone("Asia/Shanghai")	
 	for item in a:
 		temp_time = shanghai.normalize(item.modifed_date.astimezone(shanghai))
 		temp_time = str(temp_time).split('.')[0]
-		temp = [item.name,item.phone,item.major,item.area,item.need_dorm,item.need_bus,item.need_lunch,temp_time]
+		if item.is_pay==True:
+			flag = '是'
+		else:
+			flag = '否'
+		temp = [item.name,item.phone,item.major,item.area,item.need_dorm,item.need_bus,item.need_lunch,flag,temp_time]
 		if item.major == "管联":
 			raw_data[0].append(temp)
 		elif item.major == "医学":
@@ -105,7 +113,7 @@ def Download4(request):
 				ws.cell(row=i+1, column=j+1, value=str(value[k][i][j]))
 	for k in range(0,4):
 		ws = wb.get_sheet_by_name(sheetnames[k])
-		for i in ['A','B','C','D','E','F','G','H']:
+		for i in ['A','B','C','D','E','F','G','H','I']:
 			ws.column_dimensions[i].width =25
 	for  k in range(0,4):
 		ws = wb.get_sheet_by_name(sheetnames[k])
@@ -128,17 +136,21 @@ def Download3(request):
 
 	raw_data = [[],[],[],[]]
 	value = [
-			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
-			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
-			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
-			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐']],
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐','完成预报名支付','信息提交时间']],
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐','完成预报名支付','信息提交时间']],
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐','完成预报名支付','信息提交时间']],
+			[['姓名','手机','专业','出发地','订住酒店','大巴车','午餐','完成预报名支付','信息提交时间']],
 				]
 	a = YuBaoMing.objects.all().filter(area = '市区')
 	shanghai = pytz.timezone("Asia/Shanghai")	
 	for item in a:
 		temp_time = shanghai.normalize(item.modifed_date.astimezone(shanghai))
 		temp_time = str(temp_time).split('.')[0]
-		temp = [item.name,item.phone,item.major,item.area,item.need_dorm,item.need_bus,item.need_lunch,temp_time]
+		if item.is_pay==True:
+			flag = '是'
+		else:
+			flag = '否'
+		temp = [item.name,item.phone,item.major,item.area,item.need_dorm,item.need_bus,item.need_lunch,flag,temp_time]
 		if item.major == "管联":
 			raw_data[0].append(temp)
 		elif item.major == "医学":
@@ -159,7 +171,7 @@ def Download3(request):
 				ws.cell(row=i+1, column=j+1, value=str(value[k][i][j]))
 	for k in range(0,4):
 		ws = wb.get_sheet_by_name(sheetnames[k])
-		for i in ['A','B','C','D','E','F','G','H']:
+		for i in ['A','B','C','D','E','F','G','H','I']:
 			ws.column_dimensions[i].width =25
 	for  k in range(0,4):
 		ws = wb.get_sheet_by_name(sheetnames[k])
@@ -296,6 +308,7 @@ def PreEnroll(request,*args,**kwargs):
 			name = u,
 			major = m,
 			phone = p,
+			is_pay= False,
 			area = a,
 			need_lunch = need_lunch,
 			need_bus = need_bus,

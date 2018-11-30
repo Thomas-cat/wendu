@@ -16,11 +16,16 @@ class YuBaoMing(models.Model):
 	name = models.CharField(max_length = 20,verbose_name='姓名',blank=False)
 	phone = models.CharField(max_length=11,blank=False,verbose_name = '手机号')
 	modifed_date = models.DateTimeField(auto_now_add=True,verbose_name ='提交时间')
-	need_dorm = models.CharField(max_length = 4,blank=False,verbose_name = '酒店')
 	need_bus = models.CharField(max_length = 4,blank=False,verbose_name = '大巴车')
-	need_lunch = models.CharField(max_length = 4,blank=False,verbose_name = '午餐')
-	major = models.CharField(max_length = 4,blank=False,verbose_name = '专业')
-	area = models.CharField(max_length = 4,blank=False,verbose_name = '地点')
+	lunch_choice = (('是','是'),('否','否'))
+	need_lunch = models.CharField(max_length = 10,blank=True,choices=lunch_choice,verbose_name = '午餐')
+	dorm_choice = (('单人间','单人间'),('双人间','双人间'))
+	need_dorm = models.CharField(max_length = 10,choices=dorm_choice,verbose_name = '酒店')
+	area_choice = (('市区','市区'),('曹妃甸','曹妃甸'))
+	area = models.CharField(max_length = 10,choices=area_choice,verbose_name = '地点')
+	is_pay = models.BooleanField(verbose_name = '预报名支付',default=True)
+	major_choice = (('医学','医学'),('建工','建工'),('其它','其它'),('管联','管联'))
+	major = models.CharField(max_length = 10,choices=major_choice,verbose_name = '专业')
 	class Meta:
 		 verbose_name_plural='12月预报名'
 	def __str__(self):	 	
