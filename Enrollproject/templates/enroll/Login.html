@@ -1,0 +1,101 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>文都考研直通车,直达成功彼岸</title>
+    <!-- css -->
+    <link rel="stylesheet" href="{% static 'enroll/css/custom.css' %}">
+<script src="{% static 'enroll/js/script.js' %}"></script>
+ <link rel="shortcut icon" href="{% static 'blog/img/favicon.ico' %}" type="image/x-icon">
+
+
+<link rel="stylesheet" href="{% static  'mao/css/normalize.css' %}">
+<link rel="stylesheet" href="{% static 'mao/css/login.css' %}">
+<link rel="stylesheet" href="{% static 'mao/css/sign-up-login.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'mao/css/font-awesome.min.css' %}">
+<link rel="stylesheet" href="{% static 'mao/css/inputEffect.css' %}">
+<link rel="stylesheet" href="{% static 'mao/css/tooltips.css' %}">
+<link rel="stylesheet" href="{% static 'mao/css/spop.min.css' %}">
+
+<script src="{% static 'mao/js/jquery.min.js' %}"></script>
+<script src="{% static 'mao/js/jquery.pure.tooltips.js' %}"></script>
+<script src="{% static 'mao/js/spop.min.js' %}"></script>
+<style type="text/css">
+html{width: 100%; height: 100%;}
+body:before {
+  content: ' ';
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url(/static/mao/images/snow.jpg) 0 0 no-repeat;
+  background-size: cover;
+}
+
+.snow-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100001; }
+
+</style>
+</head>
+<body>
+	<!-- 雪花背景 -->
+	<div class="snow-container"></div>
+	<!-- 登录控件 -->
+	<div id="login">
+		<input id="tab-1" type="radio" name="tab" class="sign-in hidden" checked />
+		<input id="tab-2" type="radio" name="tab" class="sign-up hidden" />
+		<input id="tab-3" type="radio" name="tab" class="sign-out hidden" />
+		<div class="wrapper" id="test">
+			<!-- 登录页面 -->
+			<div class="login sign-in-htm" >
+				<form action="{% url 'enroll:Login'%}" method="post" class="container offset1 loginform comment-form" style="max-width:70%;margin-top:20px" id="form" >
+					{% csrf_token %}
+					<!-- 猫头鹰控件 -->
+					<div id="owl-login" class="register-owl">
+						<div class="hand"></div>
+						<div class="hand hand-r"></div>
+						<div class="arms">
+							<div class="arm"></div>
+							<div class="arm arm-r"></div>
+						</div>
+					</div>
+					<div class="pad input-container" id="test2" style="background-color: rgb(212, 218, 234);">
+						<section class="content">
+  <div class="row">
+    <div class="col-md-12" style="padding-left:28px;padding-right:28px">
+	  <div class="field-label"> <h3 style="font-size:20px"><img src="{%static 'enroll/img/logo.png'%}" width="27px" height="27px"/>预报名用户登录</h3></div>
+
+    </div>
+    <div class="col-md-12" style="padding-left:28px;padding-right:28px">
+	  <div class="field-label"> 姓名：</div>
+      {{ form.name }}
+      {{ form.name.errors }}
+    </div>
+    <div class="col-md-12" style="padding-left:28px;padding-right:28px">
+	  <div class="field-label"> 手机号：</div>
+      {{ form.phone }}
+      {{ form.phone.errors }}
+    </div>
+	{% if message %}
+	<script type="text/javascript" >
+	alert("信息不存在,请完成预报名");
+	</script>
+	{%endif%}
+    <div class="col-md-12" style="padding-left:30px;padding-right:30px;margin-bottom:8px;margin-top:8px;text-align:center">
+	  <button type="submit" id="fat-btn" class="btn btn-primary"  style="min-width: 100px;position:absolute;left:30px">登录</button>
+	  <a type="" id="fat-btn" class="btn btn-primary"  style="min-width: 100px;position:absolute;right:30px" href="{%url 'enroll:PreEnroll'%}">预报名</a>
+	  </div>
+    </div>
+  </div>    <!-- row -->
+						</section>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,6 +1,11 @@
  {% extends 'base.html'%}
 {% load staticfiles %}
 			{%block main%}
+			{%if message%}
+			<script type="text/javascript">
+			alert("请完成支付后,继续正式报名");
+			</script>
+			{%endif%}
 <img src = "{% static 'enroll/img/weixin_100.jpg'%}">
 <hr style="border-top: 2px solid #ddd;margin-bottom:5px;">
 
@@ -37,18 +42,13 @@
 
 <div style="position:relative">
 <h4>
-<p style="position:relative;margin-bottom:8px">6.<span style="color:red">最终价格将在12月中旬确定,请留意群内通知</span></p>
-</h4>
-</div>
-<div style="position:relative">
-<h4>
-<p style="position:relative;margin-bottom:8px">7.联系电话:13230800825(王老师)</p>
+<p style="position:relative;margin-bottom:8px">6.联系电话:13230800825(王老师)</p>
 </h4>
 </div>
 
 <div style="position:relative">
 <h4>
-<p style="position:relative;margin-bottom:8px">8.监督电话:18032519800(张老师)</p>
+<p style="position:relative;margin-bottom:8px">7.监督电话:18032519800(张老师)</p>
 </h4>
 </div>
 {%endblock%}

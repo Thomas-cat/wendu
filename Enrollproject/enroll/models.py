@@ -14,18 +14,45 @@ class Student(models.Model):
 		return self.name
 class YuBaoMing(models.Model):
 	name = models.CharField(max_length = 20,verbose_name='姓名',blank=False)
+	sex_choice = (('男生','男生'),('女生','女生'))
+	sex = models.CharField(max_length = 4,choices=sex_choice,blank=True,verbose_name = '性别')
 	phone = models.CharField(max_length=11,blank=False,verbose_name = '手机号')
-	modifed_date = models.DateTimeField(auto_now_add=True,verbose_name ='提交时间')
-	need_bus = models.CharField(max_length = 4,blank=False,verbose_name = '大巴车')
-	lunch_choice = (('是','是'),('否','否'))
-	need_lunch = models.CharField(max_length = 10,blank=True,choices=lunch_choice,verbose_name = '午餐')
-	dorm_choice = (('单人间','单人间'),('双人间','双人间'))
-	need_dorm = models.CharField(max_length = 10,choices=dorm_choice,verbose_name = '酒店')
-	area_choice = (('市区','市区'),('曹妃甸','曹妃甸'))
-	area = models.CharField(max_length = 10,choices=area_choice,verbose_name = '地点')
-	is_pay = models.BooleanField(verbose_name = '预报名支付',default=True)
+	exam_choice = (
+					('唐山市第十二中学(初中北院)','唐山市第十二中学(初中北院)'),
+					('唐山市第二十六中学','唐山市第二十六中学'),
+					('唐山市第三十中学(南校区)','唐山市第三十中学(南校区)'),
+					('唐山市第五十二中学','唐山市第五十二中学'),
+					('唐山市第五十四中学(主校区)','唐山市第五十四中学(主校区)'),
+					('唐山市路北区七十号小学','唐山市路北区七十号小学'),
+					('唐山市路北区龙泉西里小学','唐山市路北区龙泉西里小学'),
+					('唐山市路北区扶轮小学','唐山市路北区扶轮小学'),
+					('唐山市路北区鹭港小学','唐山市路北区鹭港小学'),
+					('唐山市第一职业中','唐山市第一职业中'),
+					('唐山市友谊中学(西校区)','唐山市友谊中学(西校区)'),
+					('唐山市西山路小学','唐山市西山路小学'),
+					('唐山师范学院附属小学','唐山师范学院附属小学'),
+					)
+	exam_area = models.CharField(max_length = 200,choices=exam_choice,verbose_name = '考点',blank=True)
+
 	major_choice = (('医学','医学'),('建工','建工'),('其它','其它'),('管联','管联'))
 	major = models.CharField(max_length = 10,choices=major_choice,verbose_name = '专业')
+
+	area_choice = (('市区','市区'),('曹妃甸','曹妃甸'))
+	area = models.CharField(max_length = 10,choices=area_choice,verbose_name = '地点')
+
+	modifed_date = models.DateTimeField(auto_now_add=True,verbose_name ='提交时间')
+	bus_choice = (('单程去','单程去'),('双程','双程'),('不需要','不需要'))
+	need_bus = models.CharField(max_length = 10,choices=bus_choice,verbose_name = '大巴车')
+
+	dorm_choice = (('单人间','单人间'),('双人间','双人间'))
+	need_dorm = models.CharField(max_length = 10,choices=dorm_choice,verbose_name = '酒店')
+	day_choice = (('1天','1天'),('2天','2天'),('不需要','不需要'))
+	day_dorm = models.CharField(max_length = 4,choices=day_choice,blank=True,verbose_name = '住宿天数')
+	lunch_choice = (('1天','1天'),('2天','2天'),('不需要','不需要'))
+	need_lunch = models.CharField(max_length = 10,blank=True,choices=lunch_choice,verbose_name = '午餐')
+	money = models.CharField(max_length = 4,blank=True,verbose_name = '金额')
+	is_pay = models.BooleanField(verbose_name = '预报名支付',default=True)
+	all_pay = models.BooleanField(verbose_name = '正式报名支付',default=False)
 	class Meta:
 		 verbose_name_plural='12月预报名'
 	def __str__(self):	 	

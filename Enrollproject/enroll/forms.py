@@ -11,7 +11,29 @@ class StudentForm(forms.Form):
 	is_enroll = forms.BooleanField(required=False)
 	fields = ['name','qq','obj_school','institute','major','phone','is_enroll']
 
-
+class LoginForm(forms.Form):
+	name = forms.CharField(max_length = 20,strip=True,required=True)
+	phone = forms.CharField(max_length=11,min_length=11,strip=True,required=True)
+	fields = ['name','phone']
+class FormalEnrollForm(forms.Form):
+	sex = forms.ChoiceField(choices=(('男生','男生'),('女生','女生')),required=True)
+	area = forms.ChoiceField(choices=(('市区','市区'),('曹妃甸','曹妃甸')),required=True)
+	exam = forms.ChoiceField(choices=(
+					('唐山市第十二中学(初中北院)','唐山市第十二中学(初中北院)'),
+					('唐山市第二十六中学','唐山市第二十六中学'),
+					('唐山市第三十中学(南校区)','唐山市第三十中学(南校区)'),
+					('唐山市第五十二中学','唐山市第五十二中学'),
+					('唐山市第五十四中学(主校区)','唐山市第五十四中学(主校区)'),
+					('唐山市路北区七十号小学','唐山市路北区七十号小学'),
+					('唐山市路北区龙泉西里小学','唐山市路北区龙泉西里小学'),
+					('唐山市路北区扶轮小学','唐山市路北区扶轮小学'),
+					('唐山市路北区鹭港小学','唐山市路北区鹭港小学'),
+					('唐山市第一职业中','唐山市第一职业中'),
+					('唐山市友谊中学(西校区)','唐山市友谊中学(西校区)'),
+					('唐山市西山路小学','唐山市西山路小学'),
+					('唐山师范学院附属小学','唐山师范学院附属小学'),
+					),required=True)
+	fields = ['sex','area','exam']
 class PreEnrollForm(forms.Form):
 	name = forms.CharField(max_length = 20,strip=True,required=True)
 	phone = forms.CharField(max_length=11,min_length=11,strip=True,required=True)
@@ -19,8 +41,7 @@ class PreEnrollForm(forms.Form):
 	area = forms.ChoiceField(choices=(('市区','市区'),('曹妃甸','曹妃甸')),required=True)
 	need_bus = forms.ChoiceField(choices=(('单程去','单程去'),('双程','双程'),('不需要','不需要(市区)')),required=True,initial=0)
 	need_dorm = forms.ChoiceField(choices=(('单人间','单人间'),('双人间','双人间')),required=True,initial=0)
-	need_lunch = forms.ChoiceField(choices=(('否','否'),('是','是')),required=True,initial=0)
-	fields = ['name','phone','need_bus','need_dorm','need_lunch','area','major']
+	fields = ['name','phone','need_bus','need_dorm','area','major']
 
 class StudentForm2(forms.Form):
 	name = forms.CharField(max_length = 20,strip=True,required=True)
