@@ -69,7 +69,7 @@
 		  $("#id_day_dorm").append("<option value='2天'>2天</option>");
 	
 	}
-	 		var money = 0 ;
+	 		var money = -100 ;
 			var day1 = 0 ;
 			var day2 = 0 ;
 
@@ -113,7 +113,7 @@
 			$("#id_money").attr('value',money);
 
      $("#id_need_lunch").change(function() {
-	 		var money = 0 ;
+	 		var money = -100 ;
 			var day1 = 0 ;
 			var day2 = 0 ;
 
@@ -155,7 +155,7 @@
 
          }); 
      $("#id_need_bus").change(function() {
-	 		var money = 0 ;
+	 		var money = -100 ;
 			var day1 = 0 ;
 			var day2 = 0 ;
 
@@ -197,7 +197,7 @@
 
          }); 
      $("#id_need_dorm").change(function() {
-	 		var money = 0 ;
+	 		var money = -100 ;
 			var day1 = 0 ;
 			var day2 = 0 ;
 

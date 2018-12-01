@@ -18,6 +18,7 @@ class LoginForm(forms.Form):
 class FormalEnrollForm(forms.Form):
 	sex = forms.ChoiceField(choices=(('男生','男生'),('女生','女生')),required=True)
 	area = forms.ChoiceField(choices=(('市区','市区'),('曹妃甸','曹妃甸')),required=True)
+	"""
 	exam = forms.ChoiceField(choices=(
 					('唐山市第十二中学(初中北院)','唐山市第十二中学(初中北院)'),
 					('唐山市第二十六中学','唐山市第二十六中学'),
@@ -33,7 +34,8 @@ class FormalEnrollForm(forms.Form):
 					('唐山市西山路小学','唐山市西山路小学'),
 					('唐山师范学院附属小学','唐山师范学院附属小学'),
 					),required=True)
-	fields = ['sex','area','exam']
+	"""
+	fields = ['sex','area']
 class PreEnrollForm(forms.Form):
 	name = forms.CharField(max_length = 20,strip=True,required=True)
 	phone = forms.CharField(max_length=11,min_length=11,strip=True,required=True)

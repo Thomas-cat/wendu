@@ -28,9 +28,11 @@ def Login(request):
 				request.session['name'] = u
 				request.session['phone'] = p
 				request.session['major'] =major
-				data = [['姓名',user.name],['性别',user.sex],['手机',user.phone],['考点',user.exam_area],['支付金额',user.money],['专业',user.major],['出发地',user.area],['订住酒店',user.need_dorm],['住宿天数',user.day_dorm],['大巴车',user.need_bus],['午餐',user.need_lunch]]
+				data = [['姓名',user.name],['性别',user.sex],['手机',user.phone],['支付金额',user.money],['专业',user.major],['出发地',user.area],['订住酒店',user.need_dorm],['住宿天数',user.day_dorm],['大巴车',user.need_bus],['午餐',user.need_lunch]]
 				if user.all_pay ==True:
 					res =  render(request,'enroll/FormalEnroll.html',{'form':form,'name':u,'phone':p,'major':major,'end':'完成','message':'您已完成支付','st':data})
+				if user.is_enroll ==True:
+					res =  render(request,'enroll/FormalEnroll.html',{'form':form,'name':u,'phone':p,'major':major,'message':'请完成支付','unend':'unend','st':data})
 				else:
 					res =  render(request,'enroll/FormalEnroll.html',{'form':form,'name':u,'phone':p,'major':major})
 				return res
@@ -52,21 +54,22 @@ def FormalEnroll(request):
 		if form.is_valid():
 			s = request.POST.get('sex')
 			a = request.POST.get('area')
-			e = request.POST.get('exam')
 			need_bus = request.POST.get('need_bus')
 			need_lunch = request.POST.get('need_lunch')
 			need_dorm = request.POST.get('need_dorm')
 			day_dorm = request.POST.get('day_dorm')
 			money = request.POST.get('money')
 			temp = YuBaoMing.objects.filter(name=name,phone=phone)
-			data = [['姓名',name],['性别',s],['手机',phone],['考点',e],['支付金额',money],['专业',major],['出发地',a],['订住酒店',need_dorm],['住宿天数',day_dorm],['大巴车',need_bus],['午餐',need_lunch]]
+			data = [['姓名',name],['性别',s],['手机',phone],['支付金额',money],['专业',major],['出发地',a],['订住酒店',need_dorm],['住宿天数',day_dorm],['大巴车',need_bus],['午餐',need_lunch]]
 			if temp:
 				user = YuBaoMing.objects.get(name=name)
 				if (user.all_pay == True):
 					return render(request,'enroll/FormalEnroll.html',{'form':form,'message':'您已完成支付','end':'完成','st':data,'major':major})
+				if (user.is_enroll == True):
+					return render(request,'enroll/FormalEnroll.html',{'form':form,'message':'请完成支付','unend':'unend','st':data,'major':major})
 				user.sex= s
+				user.is_enroll = True
 				user.area=a 
-				user.exam_area= e
 				user.need_bus= need_bus
 				user.need_lunch= need_lunch
 				user.need_dorm= need_dorm

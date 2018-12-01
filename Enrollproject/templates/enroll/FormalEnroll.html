@@ -101,6 +101,7 @@ window.confirm = function (message) {
 			{%endif%}
 			</script>
 			<h3>{{message}}</h3>
+			<h4>(信息如有误,请联系群内管理员修改)</h4>
 			<table class="table table-bordered table-condensed">
 			<tbody style="color:black">
 			{%for k in st%}
@@ -120,7 +121,7 @@ window.confirm = function (message) {
 			{%endfor%}
 			</tbody>
 			</table>
-			{%if success%}
+			{%if success or unend%}
 			 <button type="" id="fat-btn" class="btn btn-primary"  style="background-color:#39b146;border-color:rgba(233, 30, 99, 0);border-radius: 0px;min-width:100px;margin-bottom:20px" onclick="location='{% url 'enroll:weixin' 100 %}'">前往支付</button>
 			 {%endif%}
 			{%else%}
@@ -224,11 +225,6 @@ document.getElementById('test2').style.visibility='visible';
     </div>
 
     <div class="col-md-12" style="padding-left:28px;padding-right:28px">
-	  <div class="field-label"> 考点：</div>
-      {{ form.exam}}
-      {{ form.exam.errors }}
-    </div>
-    <div class="col-md-12" style="padding-left:28px;padding-right:28px">
 	  <div class="field-label"> 出发地：</div>
       {{ form.area }}
       {{ form.area.errors }}
@@ -258,7 +254,7 @@ document.getElementById('test2').style.visibility='visible';
     </div>
 
     <div class="col-md-12" style="padding-left:28px;padding-right:28px">
-	  <div class="field-label"> 支付金额：</div>
+	  <div class="field-label"> 支付金额(已减去预付金100)：</div>
 	  <input type="text" name="money" maxlength="11" readonly = "readonly"  value="" minlength="11" required="" id="id_money" style="border: 1px solid rgba(63, 81, 181, 0.52);background-color:#ddd9d9">
     </div>
 
