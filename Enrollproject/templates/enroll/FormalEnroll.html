@@ -122,7 +122,7 @@ window.confirm = function (message) {
 			</tbody>
 			</table>
 			{%if success or unend%}
-			 <button type="" id="fat-btn" class="btn btn-primary"  style="background-color:#39b146;border-color:rgba(233, 30, 99, 0);border-radius: 0px;min-width:100px;margin-bottom:20px" onclick="location='{% url 'enroll:weixin' 100 %}'">前往支付</button>
+			 <button type="" id="fat-btn" class="btn btn-primary"  style="background-color:#39b146;border-color:rgba(233, 30, 99, 0);border-radius: 0px;min-width:100px;margin-bottom:20px" onclick="location='weixin/{{money}}'">前往支付</button>
 			 {%endif%}
 			{%else%}
 			<h3>正式报名说明,请仔细阅读</h3>

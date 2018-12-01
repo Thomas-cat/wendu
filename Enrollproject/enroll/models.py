@@ -60,6 +60,8 @@ class YuBaoMing(models.Model):
 			day1 = 1
 		elif self.day_dorm == '2天':
 			day1 = 2
+		else:
+			day1 = 0 
 		if self.need_lunch == '1天':
 			day2 = 1
 		elif self.need_lunch == '2天':
@@ -75,7 +77,10 @@ class YuBaoMing(models.Model):
 		elif self.need_dorm == '双人间':
 			money +=day1*(100+40)
 		money +=day2*15
-		self.money = money-100
+		if money-100<0:
+			self.money = 0
+		else:
+			self.money = money-100
 		super(YuBaoMing,self).save(*args,**kwargs)
 	class Meta:
 		 verbose_name_plural='12月正式报名'

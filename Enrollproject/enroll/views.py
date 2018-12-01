@@ -22,9 +22,10 @@ def Login(request):
 				form = FormalEnrollForm()
 				major = user.major
 				enroll_pay = user.is_pay
+				money = user.money
 				if enroll_pay==False:
 					logging.debug(enroll_pay)
-					return render(request,'enroll/weixin_100.html',{'message':'请完成预报名支付'})
+					return render(request,'enroll/weixin.html',{'message':'请完成预报名支付','money':100})
 				request.session['name'] = u
 				request.session['phone'] = p
 				request.session['major'] =major
@@ -32,7 +33,7 @@ def Login(request):
 				if user.all_pay ==True:
 					res =  render(request,'enroll/FormalEnroll.html',{'form':form,'name':u,'phone':p,'major':major,'end':'完成','message':'您已完成支付','st':data})
 				if user.is_enroll ==True:
-					res =  render(request,'enroll/FormalEnroll.html',{'form':form,'name':u,'phone':p,'major':major,'message':'请完成支付','unend':'unend','st':data})
+					res =  render(request,'enroll/FormalEnroll.html',{'form':form,'name':u,'phone':p,'major':major,'message':'请完成支付','unend':'unend','st':data,'money':money})
 				else:
 					res =  render(request,'enroll/FormalEnroll.html',{'form':form,'name':u,'phone':p,'major':major})
 				return res
@@ -76,7 +77,7 @@ def FormalEnroll(request):
 				user.day_dorm = day_dorm;
 				user.money = money;
 				user.save()
-				return render(request,'enroll/FormalEnroll.html',{'form':form,'success':'完成','message':'您的信息如下','st':data,'major':major})
+				return render(request,'enroll/FormalEnroll.html',{'form':form,'success':'完成','message':'您的信息如下','st':data,'major':major,'money':money})
 		else:
 			return render(request, 'enroll/FormalEnroll.html', {'form':form,'name':name,'phone':phone,'major':major})
 	else:
@@ -92,10 +93,10 @@ def Download4(request):
 
 	raw_data = [[],[],[],[]]
 	value = [
-			[['姓名','性别','手机','考点','专业','出发地','订住酒店','大巴车','午餐','预报名支付','金额','正式报名支付','信息提交时间']],
-			[['姓名','性别','手机','考点','专业','出发地','订住酒店','大巴车','午餐','预报名支付','金额','正式报名支付','信息提交时间']],
-			[['姓名','性别','手机','考点','专业','出发地','订住酒店','大巴车','午餐','预报名支付','金额','正式报名支付','信息提交时间']],
-			[['姓名','性别','手机','考点','专业','出发地','订住酒店','大巴车','午餐','预报名支付','金额','正式报名支付','信息提交时间']],
+			[['姓名','性别','手机','考点','专业','出发地','订住酒店','住宿天数','大巴车','午餐','预报名支付','金额','正式报名支付','信息提交时间']],
+			[['姓名','性别','手机','考点','专业','出发地','订住酒店','住宿天数','大巴车','午餐','预报名支付','金额','正式报名支付','信息提交时间']],
+			[['姓名','性别','手机','考点','专业','出发地','订住酒店','住宿天数','大巴车','午餐','预报名支付','金额','正式报名支付','信息提交时间']],
+			[['姓名','性别','手机','考点','专业','出发地','订住酒店','住宿天数','大巴车','午餐','预报名支付','金额','正式报名支付','信息提交时间']],
 				]
 	a = YuBaoMing.objects.all().filter(area = '曹妃甸')
 	shanghai = pytz.timezone("Asia/Shanghai")	
@@ -110,7 +111,7 @@ def Download4(request):
 			is_pay = '是'
 		else:
 			is_pay = '否'
-		temp = [item.name,item.sex,item.phone,item.exam_area,item.major,item.area,item.need_dorm,item.need_bus,item.need_lunch,is_pay,item.money,all_pay,temp_time]
+		temp = [item.name,item.sex,item.phone,item.exam_area,item.major,item.area,item.need_dorm,item.day_dorm,item.need_bus,item.need_lunch,is_pay,item.money,all_pay,temp_time]
 		if item.major == "管联":
 			raw_data[0].append(temp)
 		elif item.major == "医学":
@@ -131,7 +132,7 @@ def Download4(request):
 				ws.cell(row=i+1, column=j+1, value=str(value[k][i][j]))
 	for k in range(0,4):
 		ws = wb.get_sheet_by_name(sheetnames[k])
-		for i in ['A','B','C','D','E','F','G','H','I','J','K','L']:
+		for i in ['A','B','C','D','E','F','G','H','I','J','K','L','M']:
 			ws.column_dimensions[i].width =25
 	for  k in range(0,4):
 		ws = wb.get_sheet_by_name(sheetnames[k])
@@ -154,10 +155,10 @@ def Download3(request):
 
 	raw_data = [[],[],[],[]]
 	value = [
-			[['姓名','性别','手机','考点','专业','出发地','订住酒店','大巴车','午餐','预报名支付','金额','正式报名支付','信息提交时间']],
-			[['姓名','性别','手机','考点','专业','出发地','订住酒店','大巴车','午餐','预报名支付','金额','正式报名支付','信息提交时间']],
-			[['姓名','性别','手机','考点','专业','出发地','订住酒店','大巴车','午餐','预报名支付','金额','正式报名支付','信息提交时间']],
-			[['姓名','性别','手机','考点','专业','出发地','订住酒店','大巴车','午餐','预报名支付','金额','正式报名支付','信息提交时间']],
+			[['姓名','性别','手机','考点','专业','出发地','订住酒店','住宿天数','大巴车','午餐','预报名支付','金额','正式报名支付','信息提交时间']],
+			[['姓名','性别','手机','考点','专业','出发地','订住酒店','住宿天数','大巴车','午餐','预报名支付','金额','正式报名支付','信息提交时间']],
+			[['姓名','性别','手机','考点','专业','出发地','订住酒店','住宿天数','大巴车','午餐','预报名支付','金额','正式报名支付','信息提交时间']],
+			[['姓名','性别','手机','考点','专业','出发地','订住酒店','住宿天数','大巴车','午餐','预报名支付','金额','正式报名支付','信息提交时间']],
 				]
 	a = YuBaoMing.objects.all().filter(area = '市区')
 	shanghai = pytz.timezone("Asia/Shanghai")	
@@ -172,7 +173,7 @@ def Download3(request):
 			is_pay = '是'
 		else:
 			is_pay = '否'
-		temp = [item.name,item.sex,item.phone,item.exam_area,item.major,item.area,item.need_dorm,item.need_bus,item.need_lunch,is_pay,item.money,all_pay,temp_time]
+		temp = [item.name,item.sex,item.phone,item.exam_area,item.major,item.area,item.need_dorm,item.day_dorm,item.need_bus,item.need_lunch,is_pay,item.money,all_pay,temp_time]
 		if item.major == "管联":
 			raw_data[0].append(temp)
 		elif item.major == "医学":
@@ -193,7 +194,7 @@ def Download3(request):
 				ws.cell(row=i+1, column=j+1, value=str(value[k][i][j]))
 	for k in range(0,4):
 		ws = wb.get_sheet_by_name(sheetnames[k])
-		for i in ['A','B','C','D','E','F','G','H','I','J','K','L']:
+		for i in ['A','B','C','D','E','F','G','H','I','J','K','L','M']:
 			ws.column_dimensions[i].width =25
 	for  k in range(0,4):
 		ws = wb.get_sheet_by_name(sheetnames[k])
@@ -413,4 +414,4 @@ def Enroll2(request,*args,**kwargs):
 def zhifubao(request,money):
 	return render(request,'enroll/zhifubao_%s.html'%(str(money)))
 def weixin(request,money):
-	return render(request,'enroll/weixin_%s.html'%(str(money)))
+	return render(request,'enroll/weixin.html',{'money':money})
