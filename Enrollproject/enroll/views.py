@@ -18,7 +18,7 @@ def Login(request):
 			p = request.POST.get('phone')
 			user = YuBaoMing.objects.filter(name=u,phone=p)
 			if user:
-				user = YuBaoMing.objects.get(name=u)
+				user = YuBaoMing.objects.get(phone=p,name=u)
 				form = FormalEnrollForm()
 				major = user.major
 				enroll_pay = user.is_pay
@@ -32,7 +32,7 @@ def Login(request):
 				data = [['姓名',user.name],['性别',user.sex],['手机',user.phone],['支付金额',user.money],['专业',user.major],['出发地',user.area],['订住酒店',user.need_dorm],['住宿天数',user.day_dorm],['大巴车',user.need_bus],['午餐',user.need_lunch]]
 				if user.all_pay ==True:
 					res =  render(request,'enroll/FormalEnroll.html',{'form':form,'name':u,'phone':p,'major':major,'end':'完成','message':'您已完成支付','st':data})
-				if user.is_enroll ==True:
+				elif user.is_enroll ==True:
 					res =  render(request,'enroll/FormalEnroll.html',{'form':form,'name':u,'phone':p,'major':major,'message':'请完成支付','unend':'unend','st':data,'money':money})
 				else:
 					res =  render(request,'enroll/FormalEnroll.html',{'form':form,'name':u,'phone':p,'major':major})
@@ -63,7 +63,7 @@ def FormalEnroll(request):
 			temp = YuBaoMing.objects.filter(name=name,phone=phone)
 			data = [['姓名',name],['性别',s],['手机',phone],['支付金额',money],['专业',major],['出发地',a],['订住酒店',need_dorm],['住宿天数',day_dorm],['大巴车',need_bus],['午餐',need_lunch]]
 			if temp:
-				user = YuBaoMing.objects.get(name=name)
+				user = YuBaoMing.objects.get(name=name,phone=phone)
 				if (user.all_pay == True):
 					return render(request,'enroll/FormalEnroll.html',{'form':form,'message':'您已完成支付','end':'完成','st':data,'major':major})
 				if (user.is_enroll == True):

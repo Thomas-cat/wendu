@@ -51,7 +51,7 @@ class YuBaoMing(models.Model):
 	lunch_choice = (('1天','1天'),('2天','2天'),('不需要','不需要'))
 	need_lunch = models.CharField(max_length = 10,blank=True,choices=lunch_choice,verbose_name = '午餐')
 	money = models.CharField(max_length = 4,blank=True,verbose_name = '金额')
-	is_enroll = models.BooleanField(verbose_name = '已报名',default=False)
+	is_enroll = models.BooleanField(verbose_name = '提交正式报名',default=False)
 	is_pay = models.BooleanField(verbose_name = '预报名支付',default=True)
 	all_pay = models.BooleanField(verbose_name = '正式报名支付',default=False)
 	def save(self,*args,**kwargs):
