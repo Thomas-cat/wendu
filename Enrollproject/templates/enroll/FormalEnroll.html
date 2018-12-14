@@ -97,7 +97,7 @@ window.confirm = function (message) {
     }  
 }	 
 			{%if success%}
-			alert("信息已录入,请前往支付");
+			alert("信息已录入");
 			{%endif%}
 			</script>
 			<h3>{{message}}</h3>
@@ -121,11 +121,8 @@ window.confirm = function (message) {
 			{%endfor%}
 			</tbody>
 			</table>
-			{%if success or unend%}
-			 <button type="" id="fat-btn" class="btn btn-primary"  style="background-color:#39b146;border-color:rgba(233, 30, 99, 0);border-radius: 0px;min-width:100px;margin-bottom:20px" onclick="location='weixin/{{money}}'">前往支付</button>
-			 {%endif%}
 			{%else%}
-			<h3>正式报名说明,请仔细阅读</h3>
+			<h3>请同学们填写好对应考点信息</h3>
 			<h4>(如遇问题,请右上角选择浏览器打开)</h4>
 			<ul style="list-style-type:none;text-align:left">
 			{%if major ==  '医学' %}
@@ -213,50 +210,13 @@ document.getElementById('test2').style.visibility='visible';
 	  <div class="field-label"> 手机号：</div>
 	  <input type="text" name="phone" maxlength="11" disabled="disabled" value="" minlength="11" required="" id="id_phone" style="border: 1px solid rgba(63, 81, 181, 0.52);background-color:#ddd9d9">
     </div>
-    <div class="col-md-12" style="padding-left:28px;padding-right:28px">
-	  <div class="field-label"> 专业：</div>
-	  <input type="text" name="major" maxlength="11" disabled="disabled" value=""  required="" id="id_major" style="border: 1px solid rgba(63, 81, 181, 0.52);background-color:#ddd9d9">
-    </div>
 
     <div class="col-md-12" style="padding-left:28px;padding-right:28px">
 	  <div class="field-label"> 性别：</div>
-      {{ form.sex}}
-      {{ form.sex.errors }}
+      {{ form.exam}}
+      {{ form.exam.errors }}
     </div>
 
-    <div class="col-md-12" style="padding-left:28px;padding-right:28px">
-	  <div class="field-label"> 出发地：</div>
-      {{ form.area }}
-      {{ form.area.errors }}
-    </div>
-
-    <div class="col-md-12" style="padding-left:28px;padding-right:28px">
-	  <div class="field-label"> 酒店+大巴(酒店到考点)：</div>
-	  <select name="need_dorm" id="id_need_dorm" class="form-control" style="margin: 5px 0px; border: 1px solid rgba(63, 81, 181, 0.52);"></select>
-	  </div>
-
-    <div class="col-md-12" style="padding-left:28px;padding-right:28px">
-	  <div class="field-label"> 住宿天数：</div>
-	  <select name="day_dorm" id="id_day_dorm" class="form-control" style="margin: 5px 0px; border: 1px solid rgba(63, 81, 181, 0.52);">
-</select>
-    </div>
-
-    <div class="col-md-12" style="padding-left:28px;padding-right:28px">
-	  <div class="field-label"> 大巴车：(校区到市区往返)</div>
-	  <select name="need_bus" id="id_need_bus" class="form-control" style="margin: 5px 0px; border: 1px solid rgba(63, 81, 181, 0.52);">
-</select>
-    </div>
-
-    <div class="col-md-12" style="padding-left:28px;padding-right:28px">
-	  <div class="field-label"> 午餐：</div>
-	  <select name="need_lunch" id="id_need_lunch" class="form-control" style="margin: 5px 0px; border: 1px solid rgba(63, 81, 181, 0.52);">
-</select>
-    </div>
-
-    <div class="col-md-12" style="padding-left:28px;padding-right:28px">
-	  <div class="field-label"> 支付金额(已减去预付金100)：</div>
-	  <input type="text" name="money" maxlength="11" readonly = "readonly"  value="" minlength="11" required="" id="id_money" style="border: 1px solid rgba(63, 81, 181, 0.52);background-color:#ddd9d9">
-    </div>
 
 <script type="text/javascript">
 document.getElementById("state").style.height="";

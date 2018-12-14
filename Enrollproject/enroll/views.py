@@ -20,29 +20,44 @@ def Login(request):
 			if user:
 				user = YuBaoMing.objects.get(phone=p,name=u)
 				form = FormalEnrollForm()
-				major = user.major
-				enroll_pay = user.is_pay
-				money = user.money
-				if enroll_pay==False:
-					logging.debug(enroll_pay)
-					return render(request,'enroll/weixin.html',{'message':'请完成预报名支付','money':100})
+				area = user.exam_area
 				request.session['name'] = u
 				request.session['phone'] = p
-				request.session['major'] =major
-				data = [['姓名',user.name],['性别',user.sex],['手机',user.phone],['支付金额',user.money],['专业',user.major],['出发地',user.area],['订住酒店',user.need_dorm],['住宿天数',user.day_dorm],['大巴车',user.need_bus],['午餐',user.need_lunch]]
-				if user.all_pay ==True:
-					res =  render(request,'enroll/FormalEnroll.html',{'form':form,'name':u,'phone':p,'major':major,'end':'完成','message':'您已完成支付','st':data})
-				elif user.is_enroll ==True:
-					res =  render(request,'enroll/FormalEnroll.html',{'form':form,'name':u,'phone':p,'major':major,'message':'请完成支付','unend':'unend','st':data,'money':money})
+				data = [['姓名',user.name],['手机',user.phone],['考点',area]]
+				if area !='':
+					res =  render(request,'enroll/FormalEnroll.html',{'form':form,'name':u,'phone':p,'end':'完成','message':'您已完成填写','st':data})
 				else:
-					res =  render(request,'enroll/FormalEnroll.html',{'form':form,'name':u,'phone':p,'major':major})
+					res =  render(request,'enroll/FormalEnroll.html',{'form':form,'name':u,'phone':p})
 				return res
 			else:
 				form = LoginForm()
-				return render(request,'enroll/Login.html',{'message':'无账户信息,请完成预报名','form':form})
+				return render(request,'enroll/Login.html',{'message':'无账户信息','form':form})
 	form = LoginForm()
 	return render(request, 'enroll/Login.html', {'form':form})
 def FormalEnroll(request):
+	try:
+		name = request.session['name']
+		phone = request.session['phone']
+	except:
+		form = LoginForm()
+		return render(request, 'enroll/Login.html', {'form':form})
+	if request.method == 'POST':
+		form = FormalEnrollForm(request.POST)
+		if form.is_valid():
+			a = request.POST.get('exam')
+			temp = YuBaoMing.objects.filter(name=name,phone=phone)
+			data = [['姓名',name],['手机',phone],['考点',a]]
+			if temp:
+				user = YuBaoMing.objects.get(name=name,phone=phone)
+				user.exam_area= a
+				user.save()
+				return render(request,'enroll/FormalEnroll.html',{'form':form,'success':'完成','message':'您的信息如下','st':data})
+		else:
+			return render(request, 'enroll/FormalEnroll.html', {'form':form,'name':name,'phone':phone})
+	else:
+		form = FormalEnrollForm()
+		return render(request, 'enroll/FormalEnroll.html', {'form':form,'name':name,'phone':phone})
+def FormalEnroll2(request):
 	try:
 		name = request.session['name']
 		phone = request.session['phone']
